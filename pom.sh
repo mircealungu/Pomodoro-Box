@@ -1,8 +1,22 @@
 #/bin/sh
 
 LOGFILE="/Users/mircea/Dropbox/logs/pomodoros.txt"
+USAGE="Usage: [pom \"<task, tags>\"] | -d <date> | [li[st] | ed[it] | st[at] | to[day] ]>"
+
+if [ "$1" = "-d" ]; then
+	if [[ $# -eq 2 ]]; then
+		cat $LOGFILE | grep $2 | cut -f3 -d "," | sort  | uniq -c | sort -r
+		exit
+	else
+		echo $USAGE
+		exit
+	fi
+	echo $USAGE
+	exit
+fi
+
 if [[ $# -ne 1 ]]; then
-	echo "Usage: [pom \"<task, tags>\"] | [li[st] | ed[it] | st[at] | to[day] ]>"
+	echo $USAGE
 	exit 1
 fi
 
@@ -16,7 +30,7 @@ if [ "$1" = "today" -o "$1" = "to" ]; then
         cat $LOGFILE | grep "`date '+%m/%d/%Y'`" | cut -f3 -d "," | sort  | uniq -c | sort -r
         exit
 fi
-
+	
 if [ "$1" = "st" -o "$1" = "stat" -o "$1" = "stats" ]; then
 	cat $LOGFILE | cut -f3 -d "," | sort  | uniq -c | sort -r
 	exit
