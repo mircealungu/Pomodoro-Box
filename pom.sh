@@ -1,48 +1,94 @@
 #/bin/sh
 
-LOGFILE="/Users/mircea/Dropbox/logs/pomodoros.txt"
-USAGE="Usage: [pom \"<task, tags>\"] | -d <date> | [li[st] | ed[it] | st[at] | to[day] ]>"
+# all possible commands
+# pom do "testing" (will sleep for a pomodoro, then alert you)
+# pom done "testing"
 
-if [ "$1" = "-d" ]; then
-	if [[ $# -eq 2 ]]; then
-		cat $LOGFILE | grep $2 | cut -f3 -d "," | sort  | uniq -c | sort -r
-		exit
-	else
-		echo $USAGE
-		exit
-	fi
+LOGFILE=~/Dropbox/logs/pomodoros.txt
+USAGE="usage: pom [do \"<task, tags>\"] [done \"<task, tags>\"] [li[st]|stat|ed[it]|t[oday]] [grep \"<regex>\"]"
+
+if [[ $# -eq 0 ]]; then
 	echo $USAGE
 	exit
 fi
 
-if [[ $# -ne 1 ]]; then
-	echo $USAGE
-	exit 1
-fi
+progress() {
+	i=0
 
-if [ "$1" = "li" -o "$1" = "list" ]; then
-	#statements
-	cat $LOGFILE
-	exit
-fi
+	echo -ne "....,....,....,....,....,\r"
+	while [ $i -lt 25 ]
+	do
+		let "i+=1"
+		sleep 60
+		echo -ne "+"
+	done
 
-if [ "$1" = "today" -o "$1" = "to" ]; then
+	say "Well done"
+}
+
+# One argument commands
+if [[ $# -eq 1 ]]; then
+	case "$1" in
+		# pom list
+		"list" | "li" )
+		cat $LOGFILE
+		;;
+
+		# pom stat
+		"stat" ) 
+		cat $LOGFILE | cut -f3 -d "," | sort  | uniq -c | sort -r
+		;;
+
+		# pom ed
+		"edit" | "ed" ) 
+		$EDITOR $LOGFILE
+		;;
+
+		# pom t
+		"today" | "t" )
         cat $LOGFILE | grep "`date '+%m/%d/%Y'`" | cut -f3 -d "," | sort  | uniq -c | sort -r
-        exit
+        ;;
+
+    	* )
+		echo $USAGE
+		exit 1
+		;;
+    esac
 fi
-	
-if [ "$1" = "st" -o "$1" = "stat" -o "$1" = "stats" ]; then
-	cat $LOGFILE | cut -f3 -d "," | sort  | uniq -c | sort -r
+
+# Two argument commands
+if [[ $# -eq 2 ]]; then
+	case "$1" in
+		# pom st "task, project"
+		"do" )
+			echo "Started: " $2
+			progress
+			echo  `date '+%m/%d/%Y %H:%M' `, $2 >> $LOGFILE
+			;;
+
+		# pom done "task, project"
+		"done" )
+			echo  `date '+%m/%d/%Y %H:%M' `, $2 >> $LOGFILE
+			;;
+			
+		# pom grep "Red" -- stats for all the tasks which contain Red
+		# pom grep "^05/" -- will return stats for the pomodoros in June 
+		"grep" )
+			cat $LOGFILE | grep $2 | cut -f3 -d "," | sort  | uniq -c | sort -r
+			;;
+		* )
+			echo $USAGE
+			exit 1
+			;;
+	esac
+fi
+
+if [[ $# -gt 2 ]]; then
+	echo $USAGE
 	exit
 fi
 
-if [ "$1" = "ed" -o "$1" = "edit" ]; then
-	#statements
-	$EDITOR $LOGFILE
-	exit
-fi
 
-echo  `date '+%m/%d/%Y %H:%M' `, $1 >> $LOGFILE
 
 
 
