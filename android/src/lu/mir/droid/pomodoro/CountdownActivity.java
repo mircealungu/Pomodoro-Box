@@ -24,11 +24,15 @@ import android.widget.TextView;
 public class CountdownActivity extends Activity implements OnInitListener {
 
 	private TextToSpeech tts;
+	private static long SECOND = 1000;
+	private static long COUNTDOWN_TIME = 90 * SECOND;
 	
 	protected void updateTimer(long millisUntilFinished) {
+		long minsToFinish = millisUntilFinished / 1000 / 60;
+		long secs = millisUntilFinished / 1000 % 60;
+		
 		TextView counterView = (TextView) findViewById(R.id.counter);
-		counterView.setText("Time remaining: " + millisUntilFinished
-			/ 1000);
+		counterView.setText("Time remaining: " + minsToFinish + ":" + secs);
 	}
 	
 	protected void speak(String text) {
@@ -56,7 +60,7 @@ public class CountdownActivity extends Activity implements OnInitListener {
 
 		tts = new TextToSpeech(this, this);
 
-		new CountDownTimer(30000, 1000) {
+		new CountDownTimer(COUNTDOWN_TIME, SECOND) {
 			public void onTick(long millisUntilFinished) {
 				updateTimer(millisUntilFinished);
 			}
