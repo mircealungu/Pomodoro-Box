@@ -1,5 +1,6 @@
 package lu.mir.droid.pomodoro;
 
+import java.io.IOException;
 import java.util.Locale;
 
 import android.annotation.TargetApi;
@@ -14,36 +15,58 @@ import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.dropbox.sync.android.DbxAccountManager;
+import com.dropbox.sync.android.DbxException;
+import com.dropbox.sync.android.DbxException.Unauthorized;
+import com.dropbox.sync.android.DbxFile;
+import com.dropbox.sync.android.DbxFileSystem;
+import com.dropbox.sync.android.DbxPath;
+import com.dropbox.sync.android.DbxPath.InvalidPathException;
+
 /**
- * The TextToSpeech code is from: 
- * http://android-developers.blogspot.ch/2009/09/introduction-to-text-to-speech-in.html
+ * The TextToSpeech code is from:
+ * http://android-developers.blogspot.ch/2009/09/introduction
+ * -to-text-to-speech-in.html
+ * 
  * @author mircea
- *
+ * 
  */
 
 public class CountdownActivity extends Activity implements OnInitListener {
 
 	private TextToSpeech tts;
+	private String message;
 	private static long SECOND = 1000;
 	private static long COUNTDOWN_TIME = 90 * SECOND;
-	
+
 	protected void updateTimer(long millisUntilFinished) {
 		long minsToFinish = millisUntilFinished / 1000 / 60;
 		long secs = millisUntilFinished / 1000 % 60;
-		
+
 		TextView counterView = (TextView) findViewById(R.id.counter);
 		counterView.setText("Time remaining: " + minsToFinish + ":" + secs);
 	}
-	
+
 	protected void speak(String text) {
 		tts.setLanguage(Locale.US);
 		tts.speak(text, TextToSpeech.QUEUE_ADD, null);
 	}
-	
-	protected void logPomodoroToDropbox() {
+
+	protected void logPomodoroToDropbox() throws InvalidPathException, IOException {
+		DbxAccountManager mDbxAcctMgr = DbxAccountManager.getInstance(
+				getApplicationContext(), "3rglfd35h2aabho", "wcy337zm6m7paxs");
+		DbxFileSystem dbxFs;
 		
+		
+		DbxFile testFile;
+		dbxFs = DbxFileSystem.forAccount(mDbxAcctMgr.getLinkedAccount());
+		testFile = dbxFs.create(new DbxPath("mobile-pomodoros.txt"));
+		testFile.writeString(message);
+		testFile.close();
+
+		 
 	}
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -51,7 +74,7 @@ public class CountdownActivity extends Activity implements OnInitListener {
 		setContentView(R.layout.activity_display_message);
 
 		Intent intent = getIntent();
-		String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+		message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
 
 		// Create the text view
 		TextView activityView = (TextView) findViewById(R.id.activity);
@@ -68,10 +91,17 @@ public class CountdownActivity extends Activity implements OnInitListener {
 			public void onFinish() {
 				updateTimer(0);
 				speak("Well done!");
-				logPomodoroToDropbox();
+				try {
+					logPomodoroToDropbox();
+				} catch (InvalidPathException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}.start();
-
 	}
 
 	/**

@@ -1,8 +1,12 @@
 package lu.mir.droid.pomodoro;
 
+import com.dropbox.sync.android.DbxAccountManager;
+
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
@@ -10,13 +14,29 @@ import android.widget.EditText;
 public class MainActivity extends Activity {
 	
 	public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
-
+	final String welcomeScreenShownPref = "welcomeScreenShown";
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		 SharedPreferences mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+
+		DbxAccountManager mDbxAcctMgr = DbxAccountManager.getInstance(getApplicationContext(), "3rglfd35h2aabho", "wcy337zm6m7paxs");
+				 
+		 if (!mDbxAcctMgr.hasLinkedAccount()) {
+			 showWelcomeScreen();
+		 }
+		
 		setContentView(R.layout.activity_main);
 	}
 
+	public void unlinkFromDropbox(View view) {
+		DbxAccountManager mDbxAcctMgr = DbxAccountManager.getInstance(getApplicationContext(), "3rglfd35h2aabho", "wcy337zm6m7paxs");
+		mDbxAcctMgr.unlink();		
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -32,5 +52,11 @@ public class MainActivity extends Activity {
 		intent.putExtra(EXTRA_MESSAGE, message);
 		startActivity(intent);
 	}
+	
+	public void showWelcomeScreen() {
+		Intent intent = new Intent(this, WelcomeActivity.class);
+		startActivity(intent);
+	}
+
 
 }

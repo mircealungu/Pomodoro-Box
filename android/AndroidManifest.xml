@@ -7,8 +7,9 @@
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="18" />
-        
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+
+<uses-permission android:name="android.permission.INTERNET" />
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -32,6 +33,37 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="lu.mir.droid.pomodoro.MainActivity" />
         </activity>
+        <activity
+            android:name="lu.mir.droid.pomodoro.SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName="lu.mir.droid.pomodoro.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="lu.mir.droid.pomodoro.MainActivity" />
+        </activity>
+        <activity
+            android:name="lu.mir.droid.pomodoro.WelcomeActivity"
+            android:label="@string/title_activity_welcome" >
+        </activity>
+        
+        <activity android:name="com.dropbox.sync.android.DbxAuthActivity" />
+<activity
+  android:name="com.dropbox.client2.android.AuthActivity"
+  android:launchMode="singleTask" >
+  <intent-filter>
+    <data android:scheme="db-3rglfd35h2aabho" />
+    <action android:name="android.intent.action.VIEW" />
+    <category android:name="android.intent.category.BROWSABLE" />
+    <category android:name="android.intent.category.DEFAULT" />
+  </intent-filter>
+</activity>
+<service
+  android:name="com.dropbox.sync.android.DbxSyncService"
+  android:enabled="true"
+  android:exported="false"
+  android:label="Dropbox Sync" />
+        
+        
     </application>
 
 </manifest>
