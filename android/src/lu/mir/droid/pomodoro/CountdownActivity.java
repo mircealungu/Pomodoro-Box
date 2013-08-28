@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.provider.Settings.Secure;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.TextToSpeech.OnInitListener;
 import android.support.v4.app.NavUtils;
@@ -16,8 +17,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.dropbox.sync.android.DbxAccountManager;
-import com.dropbox.sync.android.DbxException;
-import com.dropbox.sync.android.DbxException.Unauthorized;
+import com.dropbox.sync.android.DbxException.NotFound;
 import com.dropbox.sync.android.DbxFile;
 import com.dropbox.sync.android.DbxFileSystem;
 import com.dropbox.sync.android.DbxPath;
@@ -37,14 +37,14 @@ public class CountdownActivity extends Activity implements OnInitListener {
 	private TextToSpeech tts;
 	private String message;
 	private static long SECOND = 1000;
-	private static long COUNTDOWN_TIME = 90 * SECOND;
+	private static long COUNTDOWN_TIME = 25 * 60 * SECOND;
 
 	protected void updateTimer(long millisUntilFinished) {
 		long minsToFinish = millisUntilFinished / 1000 / 60;
 		long secs = millisUntilFinished / 1000 % 60;
 
 		TextView counterView = (TextView) findViewById(R.id.counter);
-		counterView.setText("Time remaining: " + minsToFinish + ":" + secs);
+		counterView.setText(minsToFinish + ":" + secs);
 	}
 
 	protected void speak(String text) {
@@ -52,33 +52,41 @@ public class CountdownActivity extends Activity implements OnInitListener {
 		tts.speak(text, TextToSpeech.QUEUE_ADD, null);
 	}
 
-	protected void logPomodoroToDropbox() throws InvalidPathException, IOException {
+	protected void logPomodoroToDropbox() throws InvalidPathException,
+			IOException {
+		String android_id = Secure.getString(getApplicationContext()
+				.getContentResolver(), Secure.ANDROID_ID);
+		DbxPath logFileName = new DbxPath("log-" + android_id + ".txt");
+
 		DbxAccountManager mDbxAcctMgr = DbxAccountManager.getInstance(
 				getApplicationContext(), "3rglfd35h2aabho", "wcy337zm6m7paxs");
 		DbxFileSystem dbxFs;
-		
-		
-		DbxFile testFile;
-		dbxFs = DbxFileSystem.forAccount(mDbxAcctMgr.getLinkedAccount());
-		testFile = dbxFs.create(new DbxPath("mobile-pomodoros.txt"));
-		testFile.writeString(message);
-		testFile.close();
 
-		 
+		DbxFile logFile;
+		dbxFs = DbxFileSystem.forAccount(mDbxAcctMgr.getLinkedAccount());
+
+		try {
+			logFile = dbxFs.open(logFileName);
+		} catch (NotFound e) {
+			logFile = dbxFs.create(logFileName);
+		}
+
+		logFile.appendString(message + "\n");
+		logFile.close();
+
 	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		// Set the text view as the activity layout
-		setContentView(R.layout.activity_display_message);
+		setContentView(R.layout.activity_countdown);
 
 		Intent intent = getIntent();
 		message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
 
 		// Create the text view
 		TextView activityView = (TextView) findViewById(R.id.activity);
-		activityView.setTextSize(40);
 		activityView.setText(message);
 
 		tts = new TextToSpeech(this, this);
