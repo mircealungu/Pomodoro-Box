@@ -1,11 +1,11 @@
-#/bin/sh
+#!/bin/bash
 
 # all possible commands
 # pom do "testing" (will sleep for a pomodoro, then alert you)
 # pom done "testing"
 
-LOGFILE=~/Dropbox/logs/pomodoros.txt
-USAGE="usage: pom [do \"<task, tags>\"] [done \"<task, tags>\"] [li[st]|stat|ed[it]|t[oday]] [grep \"<regex>\"]"
+LOGFILE=~/Dropbox/Apps/PomodoroBox/box.txt
+USAGE="usage: box [do \"<task, tags>\"] [done \"<task, tags>\"] [li[st]|stat|ed[it]|t[oday]] [grep \"<regex>\"]"
 
 if [[ $# -eq 0 ]]; then
 	echo $USAGE
