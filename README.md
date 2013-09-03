@@ -1,4 +1,4 @@
-pomodorobox
+PomodoroBox
 ===========
 Motto #1: "All your pomodoros are belong to us"
 
