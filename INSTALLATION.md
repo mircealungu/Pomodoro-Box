@@ -3,7 +3,9 @@
 1. Download and install [Pomodoro Desktop](http://mac.majorgeeks.com/files/details/pomodoro_desktop.html) by Ugo Landini
 2. Go to the preferences of Pomodoro Desktop in the Script tab, set the following script for the End event:
 
+    ```
     do shell script "echo  `date '+%m/%d/%Y %H:%M'`, $pomodoroName >> ~/Dropbox/Apps/PomodoroBox/box.txt" 
+    ```
 
 3. Run the following command in your command line:
 
