@@ -7,17 +7,17 @@
 
 3. Run the following command in your command line:
 
-    wget -N -P ~/Dropbox/Apps/PomodoroBox/ https://raw.github.com/mircealungu/PomodoroBox/master/osx/pbox.sh && chmod +x ~/Dropbox/Apps/PomodoroBox/pbox.sh
+    wget -N -P ~/Dropbox/Apps/PomodoroBox/ https://raw.github.com/mircealungu/PomodoroBox/master/osx/box.sh && chmod +x ~/Dropbox/Apps/PomodoroBox/box.sh
 
 4. Add the following line in your .profile 
 
-    alias pbox='~/Dropbox/Apps/PomodoroBox/pbox.sh'
+    alias box='~/Dropbox/Apps/PomodoroBox/box.sh'
 
 
 # Testing your installation
 
 Now you should be able to run the following command
-    pom done "just installed pomodorobox, self-development"
+    box done "just installed pomodorobox, self-development"
     
 which will log one pomodoro that you can visualize with
-    pom stats
+    box stats
