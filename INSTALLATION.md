@@ -17,7 +17,9 @@
 # Testing your installation
 
 Now you should be able to run the following command
+
     box done "just installed pomodorobox, self-development"
     
 which will log one pomodoro that you can visualize with
+
     box stats
