@@ -27,4 +27,4 @@ Now you should be able to run the following command
     
 which will log one pomodoro that you can visualize with
 
-    box stats
+    box list
