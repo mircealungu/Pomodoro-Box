@@ -1,7 +1,6 @@
 pomodorobox
 ===========
-all your pomodoros are belong to us
+"all your pomodoros are belong to us"
+"pomodoro preservator used to be the other app"
 
-a virtual "box" to keep all your pomodoros
-
-and a series of scripts to visualize pomodoro stats
+This repo contains a sereis of scripts and apps to help you log, preserve, query, and visualize your pomodoros on OS X, Android, etc.
