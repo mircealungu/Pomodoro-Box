@@ -1,4 +1,4 @@
-package lu.mir.droid.pomodoro;
+package lu.mir.android.pomodorobox;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -20,6 +20,8 @@ import android.view.MenuItem;
 import android.support.v4.app.NavUtils;
 
 import java.util.List;
+
+import lu.mir.android.pomodorobox.R;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On

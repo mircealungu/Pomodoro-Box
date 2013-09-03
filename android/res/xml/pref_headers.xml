@@ -3,13 +3,13 @@
     <!-- These settings headers are only used on tablets. -->
 
     <header
-        android:fragment="lu.mir.droid.pomodoro.SettingsActivity$GeneralPreferenceFragment"
+        android:fragment="lu.mir.android.pomodorobox.SettingsActivity$GeneralPreferenceFragment"
         android:title="@string/pref_header_general" />
     <header
-        android:fragment="lu.mir.droid.pomodoro.SettingsActivity$NotificationPreferenceFragment"
+        android:fragment="lu.mir.android.pomodorobox.SettingsActivity$NotificationPreferenceFragment"
         android:title="@string/pref_header_notifications" />
     <header
-        android:fragment="lu.mir.droid.pomodoro.SettingsActivity$DataSyncPreferenceFragment"
+        android:fragment="lu.mir.android.pomodorobox.SettingsActivity$DataSyncPreferenceFragment"
         android:title="@string/pref_header_data_sync" />
 
 </preference-headers>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">1pomodoro</string>
+    <string name="app_name">PomodoroBox</string>
     <string name="edit_message">Name the activity</string>
     <string name="button_send">Start</string>
     <string name="action_settings">Settings</string>
@@ -12,6 +12,8 @@
     <string name="unlinkFromDropbox">Unlink from Dropbox!</string>
     <string name="title_activity_welcome">Welcome</string>
     <string name="welcome">Welcome</string>
+    <string name="button_blitz">Blitz</string>
+    
     <string name="connect_to_dropbox">1Pomodoro uses DropbBox to collect your pomodoros across devices. Before continuing, please allow the app to write to your dropbox account.</string>
      
      

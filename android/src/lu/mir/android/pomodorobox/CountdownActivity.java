@@ -1,7 +1,9 @@
-package lu.mir.droid.pomodoro;
+package lu.mir.android.pomodorobox;
 
 import java.io.IOException;
 import java.util.Locale;
+
+import lu.mir.android.pomodorobox.R;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -37,7 +39,7 @@ public class CountdownActivity extends Activity implements OnInitListener {
 	private TextToSpeech tts;
 	private String message;
 	private static long SECOND = 1000;
-	private static long COUNTDOWN_TIME = 25 * 60 * SECOND;
+	private long COUNTDOWN_TIME;
 
 	protected void updateTimer(long millisUntilFinished) {
 		long minsToFinish = millisUntilFinished / 1000 / 60;
@@ -84,6 +86,7 @@ public class CountdownActivity extends Activity implements OnInitListener {
 
 		Intent intent = getIntent();
 		message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+		COUNTDOWN_TIME = SECOND * intent.getLongExtra(MainActivity.EXTRA_TIME_IN_SECONDS, 7);
 
 		// Create the text view
 		TextView activityView = (TextView) findViewById(R.id.activity);

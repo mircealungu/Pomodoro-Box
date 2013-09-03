@@ -1,5 +1,6 @@
-package lu.mir.droid.pomodoro;
+package lu.mir.android.pomodorobox;
 
+import lu.mir.android.pomodorobox.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,6 +16,8 @@ import com.dropbox.sync.android.DbxAccountManager;
 public class MainActivity extends Activity {
 
 	public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
+	public final static String EXTRA_TIME_IN_SECONDS = "com.example.myfirstapp.TIME";
+	
 	final String welcomeScreenShownPref = "welcomeScreenShown";
 
 	@Override
@@ -22,7 +25,7 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 
 		DbxAccountManager mDbxAcctMgr = DbxAccountManager.getInstance(
-				getApplicationContext(), "3rglfd35h2aabho", "wcy337zm6m7paxs");
+				getApplicationContext(), "91kr6dmol3ta60l", "4wkjx70xpfl0yqu");
 
 		if (!mDbxAcctMgr.hasLinkedAccount()) {
 			showWelcomeScreen();
@@ -40,7 +43,7 @@ public class MainActivity extends Activity {
 
 	public void unlinkFromDropbox(View view) {
 		DbxAccountManager mDbxAcctMgr = DbxAccountManager.getInstance(
-				getApplicationContext(), "3rglfd35h2aabho", "wcy337zm6m7paxs");
+				getApplicationContext(), "91kr6dmol3ta60l", "4wkjx70xpfl0yqu");
 		mDbxAcctMgr.unlink();
 	}
 
@@ -57,8 +60,20 @@ public class MainActivity extends Activity {
 		EditText editText = (EditText) findViewById(R.id.edit_message);
 		String message = editText.getText().toString();
 		intent.putExtra(EXTRA_MESSAGE, message);
+		intent.putExtra(EXTRA_TIME_IN_SECONDS, (long)60 * 25);
 		startActivity(intent);
 	}
+	
+	/** Called when the user clicks the Send button */
+	public void startBlitzCounter(View view) {
+		Intent intent = new Intent(this, CountdownActivity.class);
+		EditText editText = (EditText) findViewById(R.id.edit_message);
+		String message = editText.getText().toString();
+		intent.putExtra(EXTRA_MESSAGE, message);
+		intent.putExtra(EXTRA_TIME_IN_SECONDS, (long)10);
+		startActivity(intent);
+	}	
+	
 
 	public void showWelcomeScreen() {
 		Intent intent = new Intent(this, WelcomeActivity.class);

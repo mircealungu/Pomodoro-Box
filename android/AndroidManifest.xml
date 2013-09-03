@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="lu.mir.droid.pomodoro"
+    package="lu.mir.android.pomodorobox"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -17,7 +17,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="lu.mir.droid.pomodoro.MainActivity"
+            android:name="lu.mir.android.pomodorobox.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,23 +26,23 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="lu.mir.droid.pomodoro.CountdownActivity"
+            android:name="lu.mir.android.pomodorobox.CountdownActivity"
             android:label="@string/title_activity_display_message"
-            android:parentActivityName="lu.mir.droid.pomodoro.MainActivity" >
+            android:parentActivityName="lu.mir.android.pomodorobox.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="lu.mir.droid.pomodoro.MainActivity" />
         </activity>
         <activity
-            android:name="lu.mir.droid.pomodoro.SettingsActivity"
+            android:name="lu.mir.android.pomodorobox.SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:parentActivityName="lu.mir.droid.pomodoro.MainActivity" >
+            android:parentActivityName="lu.mir.android.pomodorobox.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="lu.mir.droid.pomodoro.MainActivity" />
         </activity>
         <activity
-            android:name="lu.mir.droid.pomodoro.WelcomeActivity"
+            android:name="lu.mir.android.pomodorobox.WelcomeActivity"
             android:label="@string/title_activity_welcome" >
         </activity>
         
@@ -51,7 +51,7 @@
   android:name="com.dropbox.client2.android.AuthActivity"
   android:launchMode="singleTask" >
   <intent-filter>
-    <data android:scheme="db-3rglfd35h2aabho" />
+    <data android:scheme="db-91kr6dmol3ta60l" />
     <action android:name="android.intent.action.VIEW" />
     <category android:name="android.intent.category.BROWSABLE" />
     <category android:name="android.intent.category.DEFAULT" />

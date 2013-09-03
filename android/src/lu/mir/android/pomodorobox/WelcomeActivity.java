@@ -1,11 +1,11 @@
-package lu.mir.droid.pomodoro;
+package lu.mir.android.pomodorobox;
 
+import lu.mir.android.pomodorobox.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-import android.widget.EditText;
 
 import com.dropbox.sync.android.DbxAccountManager;
 
@@ -29,7 +29,7 @@ public class WelcomeActivity extends Activity {
 	}
 	
 	public void linkToDropbox(View view) {
-		DbxAccountManager mDbxAcctMgr = DbxAccountManager.getInstance(getApplicationContext(), "3rglfd35h2aabho", "wcy337zm6m7paxs");
+		DbxAccountManager mDbxAcctMgr = DbxAccountManager.getInstance(getApplicationContext(), "91kr6dmol3ta60l", "4wkjx70xpfl0yqu");
 		mDbxAcctMgr.startLink((Activity)this, REQUEST_LINK_TO_DBX);
 		
 	}
