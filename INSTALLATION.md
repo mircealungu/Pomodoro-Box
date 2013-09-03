@@ -7,14 +7,18 @@
     do shell script "echo  `date '+%m/%d/%Y %H:%M'`, $pomodoroName >> ~/Dropbox/Apps/PomodoroBox/box.txt" 
     ```
 
-3. Run the following command in your command line:
+3. Get the script by executing the following command in your command line:
 
     ```
-    wget -N -P ~/Dropbox/Apps/PomodoroBox/ https://raw.github.com/mircealungu/PomodoroBox/master/osx/box.sh && 
+    wget -N -P ~/Dropbox/Apps/PomodoroBox/ https://raw.github.com/mircealungu/PomodoroBox/master/osx/box.sh
+    ```
+    
+4. Make the script executable by running
+    ```
     chmod +x ~/Dropbox/Apps/PomodoroBox/box.sh
     ```
 
-4. Add the following line in your .profile 
+5. Create an alias to the script by adding the following line in your .profile 
 
     alias box='~/Dropbox/Apps/PomodoroBox/box.sh'
 
