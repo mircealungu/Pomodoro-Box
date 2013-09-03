@@ -7,7 +7,7 @@
 
 3. Run the following command in your command line:
 
-    wget -N -P ~/Dropbox/Apps/PomodoroBox/ https://raw.github.com/mircealungu/PomodoroBox/master/osx/pbox.sh
+    wget -N -P ~/Dropbox/Apps/PomodoroBox/ https://raw.github.com/mircealungu/PomodoroBox/master/osx/pbox.sh && chmod +x ~/Dropbox/Apps/PomodoroBox/pbox.sh
 
 4. Add the following line in your .profile 
 
