@@ -58,9 +58,7 @@ For more commands, see the following section.
 ## Statistics
 To see all the pomodoros you've ever done, use 
    
-    ```
     box list
-    ```
 
 To see how many pomodoros you've spent on a given project use
    
