@@ -58,24 +58,34 @@ For more commands, see the following section.
 ## Statistics
 To see all the pomodoros you've ever done, use 
    
-    ```box list```
+    ```
+    box list
+    ```
 
 To see how many pomodoros you've spent on a given project use
    
-    ```box stats```
+    ```
+    box stats
+    ```
    
 To see how many pomodoros and on which projects you've used today use
    
-    ```box today```
+    ```
+    box today
+    ```
     
 ## Logging
 If you want to edit some of the pomodoros you've already logged, use
    
-    ```box ed```
+    ```
+    box ed
+    ```
     
 If you want to add a pomodoro that you just finished and you forgot to log with Pomodoro Desktop, use
     
-    ```box done "name of task, project"```
+    ```
+    box done "name of task, project"
+    ```
 
     
 
