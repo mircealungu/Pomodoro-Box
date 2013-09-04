@@ -7,7 +7,7 @@
     do shell script "echo  `date '+%m/%d/%Y %H:%M'`, $pomodoroName >> ~/Dropbox/Apps/PomodoroBox/box.txt" 
     ```
 
-3. Get the script by executing the following two commands one after the other in Terminal:
+3. Execute the following two commands one after the other in Terminal:
 
     ```
     wget -N -P ~/Dropbox/Apps/PomodoroBox/ https://raw.github.com/mircealungu/PomodoroBox/master/osx/box.sh
@@ -17,9 +17,9 @@
     chmod +x ~/Dropbox/Apps/PomodoroBox/box.sh
     ```
 
-4. Create an alias to the script by adding the following line in your .profile 
+4. Create an alias to the script by adding the following line in your .profile. I like to call it pb but you can call your command any way you like:
 
-    alias box='~/Dropbox/Apps/PomodoroBox/box.sh'
+    alias pb='~/Dropbox/Apps/PomodoroBox/box.sh'
 
 
 # Testing your installation
