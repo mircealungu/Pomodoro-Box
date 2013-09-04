@@ -8,7 +8,7 @@ PomodoroBox
 This repo contains a script that integrates with Pomodoro Desktop and logs all your pomodoros in Dropbox. 
 It also contains an Android application that does the same thing, but that is still work in progress. 
 
-# Installation for OS X
+## Installation for OS X
 
 You have to follow these steps for each of your Macs on which you want to install Pomodoro Box.
 
@@ -37,9 +37,7 @@ You have to follow these steps for each of your Macs on which you want to instal
     ```
     
 
-
-
-# Testing your installation
+## Testing your installation
 
 Now you should be able to start using Pomodoro Desktop and every pomodoro that you finish will be logged into your Dropbox. 
 Or if you already spent one full pomodoro during the instalation and you want to log it, you can do that with:
@@ -53,9 +51,9 @@ Once you've done a few you can see them by running:
 For more commands, see the following section.
 
 
-# Using Pomodoro Box
+## Using Pomodoro Box
 
-## Statistics
+### Statistics
 To see all the pomodoros you've ever done
    
     box list
@@ -68,7 +66,7 @@ To see how did you spend your time on the different projects today
    
     box today
     
-## Logging
+### Logging
 If you want to edit some of the pomodoros you've already logged, use
    
     box ed
