@@ -56,15 +56,15 @@ For more commands, see the following section.
 # Using Pomodoro Box
 
 ## Statistics
-To see all the pomodoros you've ever done, use 
+To see all the pomodoros you've ever done
    
     box list
 
-To see how many pomodoros you've spent on a given project use
+To see how did you spend your time on the different projects
    
     box stats
    
-To see how many pomodoros and on which projects you've used today use
+To see how did you spend your time on the different projects today
    
     box today
     
