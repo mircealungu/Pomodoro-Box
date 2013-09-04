@@ -10,15 +10,17 @@ It also contains an Android application that does the same thing, but that is st
 
 # Installation for OS X
 
-0. Download and install [Pomodoro Desktop](http://mac.majorgeeks.com/files/details/pomodoro_desktop.html) by Ugo Landini
+You have to follow these steps for each of your Macs on which you want to install Pomodoro Box.
 
-1. Open the Preferences of Pomodoro Desktop. Go to the Script tab and set the following script for the End event:
+1. Download and install [Pomodoro Desktop](http://mac.majorgeeks.com/files/details/pomodoro_desktop.html) by Ugo Landini
+
+2. Open the Preferences of Pomodoro Desktop. Go to the Script tab and set the following script for the End event:
 
     ```
     do shell script "echo  `date '+%m/%d/%Y %H:%M'`, $pomodoroName >> ~/Dropbox/Apps/PomodoroBox/box.txt" 
     ```
 
-2. Execute the following two commands one after the other in Terminal:
+3. Execute the following two commands one after the other in Terminal:
 
     ```
     wget -N -P ~/Dropbox/Apps/PomodoroBox/ https://raw.github.com/mircealungu/PomodoroBox/master/osx/box.sh
@@ -28,24 +30,47 @@ It also contains an Android application that does the same thing, but that is st
     chmod +x ~/Dropbox/Apps/PomodoroBox/box.sh
     ```
 
-3. Create an alias to the script by adding the following line in your .profile. I like to call it `box` but you can call your command any way you like:
+4. Create an alias to the script by adding the following line in your .profile. I like to call it `box` but you can call your command any way you like:
 
     ```
     alias box='~/Dropbox/Apps/PomodoroBox/box.sh'
     ```
     
-*. Repeat the steps above for all the machines you have.
+
 
 
 # Testing your installation
 
 Now you should be able to start using Pomodoro Desktop and every pomodoro that you finish will be logged into your Dropbox. 
+Or if you already spent one full pomodoro during the instalation and you want to log it, you can do that with:
+
+    box done "Installing PomodoroBox, self-improvement"
+
 Once you've done a few you can see them by running:
 
     box list
     
-Or if you already spent one full pomodoro during the instalation and you want to log it, you can do that with:
+For more commands, see the following section.
 
-    box done "Installing PomodoroBox, self-improvement"
+
+# Using Pomodoro Box
+
+## Statistics
+To see all the pomodoros you've ever done, use 
+    ```box list```
+
+To see how many pomodoros you've spent on a given project use
+    ```box stats```
+    
+To see how many pomodoros and on which projects you've used today use
+    ```box today```
+    
+## Logging
+If you want to edit some of the pomodoros you've already logged, use
+    ```pom ed```
+    
+If you want to add a pomodoro that you just finished and you forgot to log with Pomodoro Desktop, use
+    ```pom done "name of task, project"
+
     
 
