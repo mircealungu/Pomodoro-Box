@@ -1,7 +1,7 @@
 PomodoroBox
 ===========
 
-    Motto #1: "All your pomodoros are belong to us"
+    Motto #1: "All your pomodoros are belong to box"
     Motto #2: "I know what I did last summer"
 
 
