@@ -30,7 +30,9 @@ It also contains an Android application that does the same thing, but that is st
 
 3. Create an alias to the script by adding the following line in your .profile. I like to call it `box` but you can call your command any way you like:
 
+    ```
     alias box='~/Dropbox/Apps/PomodoroBox/box.sh'
+    ```
     
 *. Repeat the steps above for all the machines you have.
 
