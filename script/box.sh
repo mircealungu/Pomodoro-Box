@@ -5,15 +5,21 @@
 # pom done "testing"
 
 LOGFILE=~/Dropbox/Apps/PomodoroBox/box.txt
+LOGFILEDIR=~/Dropbox/Apps/PomodoroBox/
 USAGE="usage: box [do \"<task, tags>\"] [done \"<task, tags>\"] [li[st]|stat|ed[it]|t[oday]] [grep \"<regex>\"]"
 DATEANDTIME=`date '+%Y/%m/%d %H:%M'`
 DATE=`date '+%Y/%m/%d'`
 
-if [[ $# -eq 0 ]]; then
-	echo $USAGE
-	exit
-fi
 
+clean_up() {
+
+	if [ `ls -l $LOGFILEDIR/box*.txt | wc -l` -gt 1 ]; then
+		cat $LOGFILEDIR/box*.txt | sort | uniq > $LOGFILE
+		rm -rf $LOGFILEDIR/box*conflicted*.txt
+		#echo "Consolidated" `cat $LOGFILE | wc -l` "pomodoros..."
+	fi
+
+}
 progress() {
 	i=0
 
@@ -27,6 +33,14 @@ progress() {
 
 	say "Well done"
 }
+
+# always check if cleanup is needed, and if so, do it
+clean_up
+
+if [[ $# -eq 0 ]]; then
+	echo $USAGE
+	exit
+fi
 
 # One argument commands
 if [[ $# -eq 1 ]]; then
