@@ -17,7 +17,7 @@ You have to follow these steps for each of your Macs on which you want to instal
 2. Open the Preferences of Pomodoro Desktop. Go to the Script tab and set the following script for the End event:
 
     ```
-    do shell script "echo  `date '+%m/%d/%Y %H:%M'`, $pomodoroName >> ~/Dropbox/Apps/PomodoroBox/box.txt" 
+    do shell script "echo  `date '+%Y/%m/%d %H:%M'`, $pomodoroName >> ~/Dropbox/Apps/PomodoroBox/box.txt" 
     ```
 
 3. Execute the following two commands one after the other in Terminal:
