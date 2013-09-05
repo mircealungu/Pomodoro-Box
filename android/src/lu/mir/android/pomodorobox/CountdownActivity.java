@@ -76,7 +76,7 @@ public class CountdownActivity extends Activity implements OnInitListener {
 		}
 
 		Date date = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 		
 		logFile.appendString(sdf.format(date) + ", " + message + "\n");
 		logFile.close();

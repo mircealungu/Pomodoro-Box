@@ -6,6 +6,8 @@
 
 LOGFILE=~/Dropbox/Apps/PomodoroBox/box.txt
 USAGE="usage: box [do \"<task, tags>\"] [done \"<task, tags>\"] [li[st]|stat|ed[it]|t[oday]] [grep \"<regex>\"]"
+DATEANDTIME=`date '+%Y/%m/%d %H:%M'`
+DATE=`date '+%Y/%m/%d'`
 
 if [[ $# -eq 0 ]]; then
 	echo $USAGE
@@ -46,7 +48,7 @@ if [[ $# -eq 1 ]]; then
 
 		# pom t
 		"today" | "t" )
-        cat $LOGFILE | grep "`date '+%m/%d/%Y'`" | cut -f3 -d "," | sort  | uniq -c | sort -r
+        cat $LOGFILE | grep $DATE | cut -f3 -d "," | sort  | uniq -c | sort -r
         ;;
 
     	* )
@@ -63,12 +65,12 @@ if [[ $# -eq 2 ]]; then
 		"do" )
 			echo "Started: " $2
 			progress
-			echo  `date '+%m/%d/%Y %H:%M' `, $2 >> $LOGFILE
+			echo  $DATEANDTIME, $2 >> $LOGFILE
 			;;
 
 		# pom done "task, project"
 		"done" )
-			echo  `date '+%m/%d/%Y %H:%M' `, $2 >> $LOGFILE
+			echo  $DATEANDTIME, $2 >> $LOGFILE
 			;;
 			
 		# pom grep "Red" -- stats for all the tasks which contain Red
