@@ -1,9 +1,11 @@
 package lu.mir.android.pomodorobox;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
-import lu.mir.android.pomodorobox.R;
+import org.apache.commons.lang3.StringUtils;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -58,10 +60,10 @@ public class CountdownActivity extends Activity implements OnInitListener {
 			IOException {
 		String android_id = Secure.getString(getApplicationContext()
 				.getContentResolver(), Secure.ANDROID_ID);
-		DbxPath logFileName = new DbxPath("log-" + android_id + ".txt");
+		DbxPath logFileName = new DbxPath("box.txt");
 
 		DbxAccountManager mDbxAcctMgr = DbxAccountManager.getInstance(
-				getApplicationContext(), "3rglfd35h2aabho", "wcy337zm6m7paxs");
+				getApplicationContext(), MainActivity.DBX_APP_KEY, MainActivity.DBX_APP_SECRET);
 		DbxFileSystem dbxFs;
 
 		DbxFile logFile;
@@ -73,9 +75,11 @@ public class CountdownActivity extends Activity implements OnInitListener {
 			logFile = dbxFs.create(logFileName);
 		}
 
-		logFile.appendString(message + "\n");
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+		
+		logFile.appendString(sdf.format(date) + ", " + message + "\n");
 		logFile.close();
-
 	}
 
 	@Override
