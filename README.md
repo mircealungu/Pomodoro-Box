@@ -25,7 +25,7 @@ You have to follow these steps for each of your Macs on which you want to instal
 3. Execute the following three commands one after the other in Terminal: 
 
     ```
-    wget -N -P ~/Dropbox/Apps/PomodoroBox/ https://raw.github.com/mircealungu/PomodoroBox/master/script/box.sh
+    wget -N -P ~/Dropbox/Apps/PomodoroBox/ https://raw.github.com/mircealungu/PomodoroBox/master/script/pom.sh
     ```
     
     ```
@@ -33,7 +33,7 @@ You have to follow these steps for each of your Macs on which you want to instal
     ```
     
     ```
-    echo alias box='~/Dropbox/Apps/PomodoroBox/box.sh' >> ~/.profile
+    echo alias pom='~/Dropbox/Apps/PomodoroBox/pom.sh' >> ~/.profile
     ```
 The commands download the script, make it executable, and add an alias named box in the .profile script. You should restart Terminal for the `box` command to become available.
 
@@ -45,11 +45,11 @@ Coming soon...
 Now you should be able to start using Pomodoro Desktop and every pomodoro that you finish will be logged into your Dropbox. 
 Or if you already spent one full pomodoro during the instalation and you want to log it, you can do that with:
 
-    box done "Installing PomodoroBox, self-improvement"
+    pom done "Installing PomodoroBox, self-improvement"
 
 Once you've done a few you can see them by running:
 
-    box list
+    pom list
     
 For more commands, see the following section.
 
@@ -59,24 +59,24 @@ For more commands, see the following section.
 ### Statistics
 To see all the pomodoros you've ever done
    
-    box list
+    pom list
 
 To see how did you spend your time on the different projects
    
-    box stats
+    pom stats
    
 To see how did you spend your time on the different projects today
    
-    box today
+    pom today
     
 ### Logging
 If you want to edit some of the pomodoros you've already logged, use
    
-    box ed
+    pom ed
     
 If you want to add a pomodoro that you just finished and you forgot to log with Pomodoro Desktop, use
     
-    box done "name of task, project"
+    pom done "name of task, project"
 
     
 
