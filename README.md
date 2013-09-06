@@ -14,7 +14,7 @@ You have to follow these steps for each of your Macs on which you want to instal
 
 1. Download and install [Pomodoro Desktop](http://mac.majorgeeks.com/files/details/pomodoro_desktop.html) by Ugo Landini
 
-2. Open the Preferences of Pomodoro Desktop. Go to the Script tab and set the following script for the End event:
+2. Open the Preferences of Pomodoro Desktop. Go to the Script tab and paste the following script in the box for the End event (you need to paste from the mouse as the keyboard shortcut does not work!!!):
 
     ```
     do shell script "echo  `date '+%Y/%m/%d %H:%M'`, $pomodoroName >> ~/Dropbox/Apps/PomodoroBox/box.txt" 
