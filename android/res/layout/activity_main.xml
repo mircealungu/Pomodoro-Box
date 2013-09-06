@@ -8,12 +8,21 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     >
 
+    <TextView 
+        android:id="@+id/totalLoggedPomodoros"
+        android:layout_alignParentRight="true"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        
+        />
       <EditText android:id="@+id/edit_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal ="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="30sp"
+        android:layout_marginTop="150sp"
+        android:textAlignment="center"
         android:hint="@string/edit_message" />
   
        <Button

@@ -1,11 +1,7 @@
 package lu.mir.android.pomodorobox;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Locale;
-
-import org.apache.commons.lang3.StringUtils;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -13,18 +9,12 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.provider.Settings.Secure;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.TextToSpeech.OnInitListener;
 import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import com.dropbox.sync.android.DbxAccountManager;
-import com.dropbox.sync.android.DbxException.NotFound;
-import com.dropbox.sync.android.DbxFile;
-import com.dropbox.sync.android.DbxFileSystem;
-import com.dropbox.sync.android.DbxPath;
 import com.dropbox.sync.android.DbxPath.InvalidPathException;
 
 /**
@@ -36,7 +26,7 @@ import com.dropbox.sync.android.DbxPath.InvalidPathException;
  * 
  */
 
-public class CountdownActivity extends Activity implements OnInitListener {
+public class PomodoroTimerActivity extends Activity implements OnInitListener {
 
 	private TextToSpeech tts;
 	private String message;
@@ -56,30 +46,8 @@ public class CountdownActivity extends Activity implements OnInitListener {
 		tts.speak(text, TextToSpeech.QUEUE_ADD, null);
 	}
 
-	protected void logPomodoroToDropbox() throws InvalidPathException,
-			IOException {
-		String android_id = Secure.getString(getApplicationContext()
-				.getContentResolver(), Secure.ANDROID_ID);
-		DbxPath logFileName = new DbxPath("box.txt");
-
-		DbxAccountManager mDbxAcctMgr = DbxAccountManager.getInstance(
-				getApplicationContext(), MainActivity.DBX_APP_KEY, MainActivity.DBX_APP_SECRET);
-		DbxFileSystem dbxFs;
-
-		DbxFile logFile;
-		dbxFs = DbxFileSystem.forAccount(mDbxAcctMgr.getLinkedAccount());
-
-		try {
-			logFile = dbxFs.open(logFileName);
-		} catch (NotFound e) {
-			logFile = dbxFs.create(logFileName);
-		}
-
-		Date date = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
-		
-		logFile.appendString(sdf.format(date) + ", " + message + "\n");
-		logFile.close();
+	protected void logPomodoroToDropbox() throws InvalidPathException, IOException {
+		DropBoxConnection.logPomodoroToDropbox(message);
 	}
 
 	@Override

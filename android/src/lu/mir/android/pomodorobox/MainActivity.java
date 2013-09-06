@@ -7,45 +7,48 @@ import android.view.Menu;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
-
-import com.dropbox.sync.android.DbxAccountManager;
+import android.widget.TextView;
 
 public class MainActivity extends Activity {
-	public final static String DBX_APP_KEY = "91kr6dmol3ta60l";
-	public final static String DBX_APP_SECRET = "4wkjx70xpfl0yqu";
 
 	public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
 	public final static String EXTRA_TIME_IN_SECONDS = "com.example.myfirstapp.TIME";
 	
 	final String welcomeScreenShownPref = "welcomeScreenShown";
 	
-	private static final int POMODORO_DURATION = 0;
+	private static final int POMODORO_DURATION = 25;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		showLinkToDropboxScreenIfNecesary();
+		setContentView(R.layout.activity_main);
+		showTotalLoggedPomodoros();
+		showKeyboardWhenStartingActivity();
+		
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		showTotalLoggedPomodoros();
+	}
 
-		DbxAccountManager mDbxAcctMgr = DbxAccountManager.getInstance(
-				getApplicationContext(), DBX_APP_KEY, DBX_APP_SECRET);
+	private void showTotalLoggedPomodoros() {
+		TextView totalLoggedPomodoros = (TextView) findViewById(R.id.totalLoggedPomodoros);
+		totalLoggedPomodoros.setText("Until now:" + DropBoxConnection.countPomodoros());
+	}
 
-		if (!mDbxAcctMgr.hasLinkedAccount()) {
+	private void showLinkToDropboxScreenIfNecesary() {
+		if (!DropBoxConnection.getAccountManager().hasLinkedAccount()) {
 			showWelcomeScreen();
 		}
-
-		setContentView(R.layout.activity_main);
-
-		showKeyboardWhenStartingActivity();
 	}
 
 	private void showKeyboardWhenStartingActivity() {
 		getWindow().setSoftInputMode(
 				WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-	}
-
-	public void unlinkFromDropbox(View view) {
-		DbxAccountManager mDbxAcctMgr = DbxAccountManager.getInstance(
-				getApplicationContext(), DBX_APP_KEY, DBX_APP_SECRET);
-		mDbxAcctMgr.unlink();
 	}
 
 	@Override
@@ -57,7 +60,7 @@ public class MainActivity extends Activity {
 
 	/** Called when the user clicks the Send button */
 	public void startCounter(View view) {
-		Intent intent = new Intent(this, CountdownActivity.class);
+		Intent intent = new Intent(this, PomodoroTimerActivity.class);
 		EditText editText = (EditText) findViewById(R.id.edit_message);
 		String message = editText.getText().toString();
 		intent.putExtra(EXTRA_MESSAGE, message);
@@ -67,7 +70,7 @@ public class MainActivity extends Activity {
 	
 	/** Called when the user clicks the Send button */
 	public void startBlitzCounter(View view) {
-		Intent intent = new Intent(this, CountdownActivity.class);
+		Intent intent = new Intent(this, PomodoroTimerActivity.class);
 		EditText editText = (EditText) findViewById(R.id.edit_message);
 		String message = editText.getText().toString();
 		intent.putExtra(EXTRA_MESSAGE, message);
