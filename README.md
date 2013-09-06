@@ -4,9 +4,12 @@ PomodoroBox
     Motto #1: "All your pomodoros are belong to box"
     Motto #2: "I know what I did last summer"
 
-
-This repo contains a script that integrates with Pomodoro Desktop and logs all your pomodoros in Dropbox. 
-It also contains an Android application that does the same thing, but that is still work in progress. 
+The killer features of PomodoroBox are:
+- It logs your pomodoros in a plain text file in your Dropbox. No proprietary format. All your pomodoros are belong to you.
+- It lets you log pomodoros from all your Macs
+- It lets you log pomodoros also from your Android devices
+- It lets you query, visualize, and celebrate all your pomodoros
+- It can integrate nicely with the excellent Pomodoro Desktop app by Ugo Landini
 
 ## Installation for OS X
 
