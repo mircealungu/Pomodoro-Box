@@ -6,7 +6,7 @@
 
 LOGFILE=~/Dropbox/Apps/PomodoroBox/box.txt
 LOGFILEDIR=~/Dropbox/Apps/PomodoroBox/
-USAGE="usage: $0 [do \"<task, tags>\"] [done \"<task, tags>\"] [li[st]|stat|ed[it]|t[oday]] [grep \"<regex>\"]"
+USAGE="usage: pom [do \"<task, tags>\"] [done \"<task, tags>\"] [li[st]|stat|ed[it]|t[oday]] [grep \"<regex>\"]"
 DATEANDTIME=`date '+%Y/%m/%d %H:%M'`
 DATE=`date '+%Y/%m/%d'`
 
