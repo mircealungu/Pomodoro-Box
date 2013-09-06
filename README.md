@@ -4,7 +4,7 @@ PomodoroBox
     Motto #1: "All your pomodoros are belong to box"
     Motto #2: "I know what I did last summer"
 
-The five killer features of PomodoroBox are:
+The five killer features of PomodoroBox are four:
 - It logs pomodoros from all your *Mac*, *Linux*, and *Android* devices
 - It lets you *query and visualize* your past pomodoros
 - It stores your pomodoros in a *plain text file in your Dropbox*. No proprietary format. All your pomodoros are belong to you.
