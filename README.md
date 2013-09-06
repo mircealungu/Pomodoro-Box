@@ -5,7 +5,7 @@ PomodoroBox
     Motto #2: "I know what I did last summer"
 
 The five killer features of PomodoroBox are four:
-- Time and log pomodoros from all your *Mac*, *Linux*, and *Android* devices
+- Time and log pomodoros from all your *Mac*, and *Android* devices
 - *Query and visualize* your past pomodoros
 - Data is stored in a *plain text file in your Dropbox*. No proprietary format. All your pomodoros are belong to you.
 - It integrates nicely with the excellent Pomodoro Desktop for Mac app by Ugo Landini
