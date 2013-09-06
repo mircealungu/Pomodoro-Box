@@ -4,12 +4,11 @@ PomodoroBox
     Motto #1: "All your pomodoros are belong to box"
     Motto #2: "I know what I did last summer"
 
-The killer features of PomodoroBox are:
-- It logs your pomodoros in a plain text file in your Dropbox. No proprietary format. All your pomodoros are belong to you.
-- It lets you log pomodoros from all your Macs
-- It lets you log pomodoros also from your Android devices
-- It lets you query, visualize, and celebrate all your pomodoros
-- It can integrate nicely with the excellent Pomodoro Desktop app by Ugo Landini
+The five killer features of PomodoroBox are:
+- It logs pomodoros from all your *Mac*, *Linux*, and *Android* devices
+- It lets you *query and visualize* your past pomodoros
+- It stores your pomodoros in a *plain text file in your Dropbox*. No proprietary format. All your pomodoros are belong to you.
+- It integrates nicely with the excellent Pomodoro Desktop for Mac app by Ugo Landini
 
 ## Installation for OS X
 
@@ -38,7 +37,9 @@ You have to follow these steps for each of your Macs on which you want to instal
     ```
     alias box='~/Dropbox/Apps/PomodoroBox/box.sh'
     ```
-    
+
+## Installation for Android
+Coming soon...
 
 ## Testing your installation
 
