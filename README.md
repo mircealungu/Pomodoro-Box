@@ -76,7 +76,10 @@ If you want to edit some of the pomodoros you've already logged, use
     
 If you want to add a pomodoro that you just finished and you forgot to log with Pomodoro Desktop, use
     
-    pom done "name of task, project"
+    pom done "Installed PomodoroBox, happiness"
+
+
+
 
     
 
