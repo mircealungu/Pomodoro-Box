@@ -38,7 +38,7 @@ You have to follow these steps for each of your Macs on which you want to instal
 The commands download the script, make it executable, and add an alias named `pom` in the .profile script. Now you can use the `pom` command.
 
 ## Installation for Android
-Coming soon...
+The app is still in the works, so it is not in the Android Market yet. You can clone this repo, install the Android SDK, and then deploy the app on your device.
 
 ## Testing your installation
 
