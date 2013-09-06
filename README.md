@@ -29,11 +29,11 @@ You have to follow these steps for each of your Macs on which you want to instal
     ```
     
     ```
-    chmod +x ~/Dropbox/Apps/PomodoroBox/box.sh
+    chmod +x ~/Dropbox/Apps/PomodoroBox/pom.sh
     ```
     
     ```
-    echo alias pom='~/Dropbox/Apps/PomodoroBox/pom.sh' >> ~/.profile
+    echo alias pom='~/Dropbox/Apps/PomodoroBox/pom.sh' >> ~/.profile && source ~/.profile
     ```
 The commands download the script, make it executable, and add an alias named box in the .profile script. You should restart Terminal for the `box` command to become available.
 
