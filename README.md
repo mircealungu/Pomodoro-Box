@@ -23,7 +23,7 @@ You have to follow these steps for each of your Macs on which you want to instal
 3. Execute the following two commands one after the other in Terminal:
 
     ```
-    wget -N -P ~/Dropbox/Apps/PomodoroBox/ https://raw.github.com/mircealungu/PomodoroBox/master/osx/box.sh
+    wget -N -P ~/Dropbox/Apps/PomodoroBox/ https://raw.github.com/mircealungu/PomodoroBox/master/script/box.sh
     ```
     
     ```
