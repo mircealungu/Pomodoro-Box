@@ -29,7 +29,7 @@ You have to follow these steps for each of your Macs on which you want to instal
     ```
     
     ```
-    chmod +x ~/Dropbox/Apps/PomodoroBox/box.sh
+    chmod +x ~/Dropbox/Apps/PomodoroBox/pom.sh
     ```
     
     ```
