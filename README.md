@@ -35,7 +35,7 @@ You have to follow these steps for each of your Macs on which you want to instal
     ```
     echo alias pom='~/Dropbox/Apps/PomodoroBox/pom.sh' >> ~/.profile && source ~/.profile
     ```
-The commands download the script, make it executable, and add an alias named box in the .profile script. Now you can use the `pom` command.
+The commands download the script, make it executable, and add an alias named `pom` in the .profile script. Now you can use the `pom` command.
 
 ## Installation for Android
 Coming soon...
