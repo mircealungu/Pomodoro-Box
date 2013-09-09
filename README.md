@@ -14,7 +14,7 @@ The five killer features of PomodoroBox are four:
 
 You have to follow these steps for each of your Macs on which you want to install Pomodoro Box.
 
-1. Download and install [Pomodoro Desktop](http://mac.majorgeeks.com/files/details/pomodoro_desktop.html) by Ugo Landini
+1. Download and install [Pomodoro Desktop](http://mac.softpedia.com/get/Business/Pomodoro-Desktop.shtml) by Ugo Landini
 
 2. Open the Preferences of Pomodoro Desktop. Go to the Script tab and paste the following script for the End event (I used the mouse; the keyboard shortcut did not work):
 
