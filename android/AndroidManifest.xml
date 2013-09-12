@@ -27,7 +27,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="lu.mir.android.pomodorobox.PomodoroTimerActivity"
+            android:name="lu.mir.android.pomodorobox.TimerActivity"
             android:label="@string/title_activity_display_message"
             android:parentActivityName="lu.mir.android.pomodorobox.MainActivity" >
             <meta-data

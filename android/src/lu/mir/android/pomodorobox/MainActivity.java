@@ -25,6 +25,7 @@ public class MainActivity extends Activity {
 		showLinkToDropboxScreenIfNecesary();
 		setContentView(R.layout.activity_main);
 		showTotalLoggedPomodoros();
+		showMostRecentPomodoros();
 		showKeyboardWhenStartingActivity();
 		
 	}
@@ -39,6 +40,12 @@ public class MainActivity extends Activity {
 		TextView totalLoggedPomodoros = (TextView) findViewById(R.id.totalLoggedPomodoros);
 		totalLoggedPomodoros.setText("Until now:" + DropBoxConnection.countPomodoros());
 	}
+	
+	private void showMostRecentPomodoros() {
+		TextView totalLoggedPomodoros = (TextView) findViewById(R.id.totalLoggedPomodoros);
+		totalLoggedPomodoros.setText("Until now:" + DropBoxConnection.countPomodoros());
+	}
+	
 
 	private void showLinkToDropboxScreenIfNecesary() {
 		if (!DropBoxConnection.getAccountManager().hasLinkedAccount()) {
@@ -60,7 +67,7 @@ public class MainActivity extends Activity {
 
 	/** Called when the user clicks the Send button */
 	public void startCounter(View view) {
-		Intent intent = new Intent(this, PomodoroTimerActivity.class);
+		Intent intent = new Intent(this, TimerActivity.class);
 		EditText editText = (EditText) findViewById(R.id.edit_message);
 		String message = editText.getText().toString();
 		intent.putExtra(EXTRA_MESSAGE, message);
@@ -70,7 +77,7 @@ public class MainActivity extends Activity {
 	
 	/** Called when the user clicks the Send button */
 	public void startBlitzCounter(View view) {
-		Intent intent = new Intent(this, PomodoroTimerActivity.class);
+		Intent intent = new Intent(this, TimerActivity.class);
 		EditText editText = (EditText) findViewById(R.id.edit_message);
 		String message = editText.getText().toString();
 		intent.putExtra(EXTRA_MESSAGE, message);
