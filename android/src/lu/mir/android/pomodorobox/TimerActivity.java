@@ -145,11 +145,10 @@ public class TimerActivity extends Activity implements OnInitListener {
 	    savedInstanceState.putLong(STATE_MILLIS, current_count);
 	    // If not canceled, the timer which is a separate thread will keep running, and we'll end up with multiple 
 	    // timers finishing and thus multiple actions logged. Not cool.
-	    timer.cancel();
+	    
 	    
 	    // Always call the superclass so it can save the view hierarchy state
 	    super.onSaveInstanceState(savedInstanceState);
-
 	}
 	
 	public void onRestoreInstanceState(Bundle savedInstanceState) {
