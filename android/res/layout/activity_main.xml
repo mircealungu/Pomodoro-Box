@@ -5,8 +5,7 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    >
+    android:paddingTop="@dimen/activity_vertical_margin" >
 
     <TextView 
         android:id="@+id/totalLoggedPomodoros"
@@ -38,11 +37,19 @@
 		<Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below ="@id/startCounter_button"
+        android:layout_toRightOf="@id/startCounter_button"
+        android:layout_below ="@id/edit_message"
         android:layout_marginTop="16sp"
         android:layout_centerHorizontal ="true"      
         android:text="@string/button_blitz" 
         android:onClick="startBlitzCounter"/>
-       
+
+		<ListView
+		    android:id="@+id/lastPomodoros"
+		    android:layout_width="match_parent"
+		    android:layout_height="150sp"
+		    android:layout_alignRight="@+id/totalLoggedPomodoros"
+		    android:layout_alignTop="@+id/totalLoggedPomodoros" >
+		</ListView>
       
 </RelativeLayout>

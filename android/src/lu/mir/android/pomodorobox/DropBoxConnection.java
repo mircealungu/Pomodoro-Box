@@ -4,12 +4,16 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import android.view.View;
 
 import com.dropbox.sync.android.DbxAccountManager;
+import com.dropbox.sync.android.DbxException;
 import com.dropbox.sync.android.DbxException.NotFound;
+import com.dropbox.sync.android.DbxException.Unauthorized;
 import com.dropbox.sync.android.DbxFile;
 import com.dropbox.sync.android.DbxFileSystem;
 import com.dropbox.sync.android.DbxPath;
@@ -53,6 +57,36 @@ public class DropBoxConnection {
 		}
 		
 	}
+	
+	public static List<String> last3Pomodoros() {
+		ArrayList <String> lines = new ArrayList<String>();
+		
+		DbxFileSystem dbxFs;
+		DbxFile logFile = null;
+		DbxPath logFileName = new DbxPath(LOGFILE);
+		String lastLine;
+		
+		try {
+			dbxFs = DbxFileSystem.forAccount(getAccountManager().getLinkedAccount());
+			logFile = dbxFs.open(logFileName);
+			logFile.update();
+			BufferedReader reader = new BufferedReader(new InputStreamReader(logFile.getReadStream()));
+			while ((lastLine=reader.readLine()) != null) lines.add(lastLine);
+		} catch (Unauthorized e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (DbxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			logFile.close();
+		}
+				
+		return lines.subList(lines.size()-3, lines.size());
+	}
 
 	public static int countPomodoros() {
 		int lines = 0;
@@ -66,12 +100,19 @@ public class DropBoxConnection {
 			logFile.update();
 			BufferedReader reader = new BufferedReader(new InputStreamReader(logFile.getReadStream()));
 			while (reader.readLine() != null) lines ++;
-		} catch (Exception e1) {
-			return 0;
+		} catch (Unauthorized e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (DbxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} finally {
 			logFile.close();
 		}
-		
+				
 		return lines;
 	}
 

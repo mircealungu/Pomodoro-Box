@@ -5,6 +5,8 @@ import java.util.Locale;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -35,14 +37,20 @@ public class TimerActivity extends Activity implements OnInitListener {
 	private static long SECOND = 1000;
 	private long initial_count;
 	private long current_count;
+
+	private CountDownTimer timer;
 	
 
 	protected void updateTimer(long millisUntilFinished) {
+		
 		long minsToFinish = millisUntilFinished / 1000 / 60;
 		long secs = millisUntilFinished / 1000 % 60;
+		
+		String minuteString = ((minsToFinish < 10)?"0":"") + minsToFinish;
+		String secondsString = (secs<10?"0":"") + secs;
 
 		TextView counterView = (TextView) findViewById(R.id.counter);
-		counterView.setText(minsToFinish + ":" + secs);
+		counterView.setText( minuteString + ":" + secondsString);
 	}
 
 	protected void speak(String text) {
@@ -75,7 +83,7 @@ public class TimerActivity extends Activity implements OnInitListener {
 
 		tts = new TextToSpeech(this, this);
 
-		new CountDownTimer(initial_count, SECOND) {
+		timer = new CountDownTimer(initial_count, SECOND) {
 			public void onTick(long millisUntilFinished) {
 				current_count = millisUntilFinished;
 				updateTimer(millisUntilFinished);
@@ -84,13 +92,12 @@ public class TimerActivity extends Activity implements OnInitListener {
 			public void onFinish() {
 				updateTimer(1);
 				speak("Well done!");
+				finish();
 				try {
 					logPomodoroToDropbox();
 				} catch (InvalidPathException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -150,5 +157,23 @@ public class TimerActivity extends Activity implements OnInitListener {
 	    initial_count = savedInstanceState.getLong(STATE_MILLIS);
 	    
 	}
+	
+	@Override
+	public void onBackPressed() {
+	    new AlertDialog.Builder(this)
+	        .setIcon(android.R.drawable.ic_dialog_alert)
+	        .setTitle("Stopping the counter")
+	        .setMessage("This will reset the pomodoro. Sure you want to do this?")
+	        .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+	    {
+	        @Override
+	        public void onClick(DialogInterface dialog, int which) {
+	            timer.cancel();
+	            finish();
+	        }
 
+	    })
+	    .setNegativeButton("No", null)
+	    .show();
+	}
 }

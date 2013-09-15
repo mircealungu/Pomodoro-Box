@@ -3,10 +3,15 @@ package lu.mir.android.pomodorobox;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SimpleCursorAdapter;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ExpandableListView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class MainActivity extends Activity {
@@ -17,6 +22,8 @@ public class MainActivity extends Activity {
 	final String welcomeScreenShownPref = "welcomeScreenShown";
 	
 	private static final int POMODORO_DURATION = 25;
+	
+	 SimpleCursorAdapter mAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +32,7 @@ public class MainActivity extends Activity {
 		showLinkToDropboxScreenIfNecesary();
 		setContentView(R.layout.activity_main);
 		showTotalLoggedPomodoros();
-		showMostRecentPomodoros();
+		showLastLoggedPomodoros();
 		showKeyboardWhenStartingActivity();
 		
 	}
@@ -34,6 +41,8 @@ public class MainActivity extends Activity {
 	protected void onResume() {
 		super.onResume();
 		showTotalLoggedPomodoros();
+		showLastLoggedPomodoros();
+		Log.d(EXTRA_MESSAGE, "resuming...");
 	}
 
 	private void showTotalLoggedPomodoros() {
@@ -41,11 +50,15 @@ public class MainActivity extends Activity {
 		totalLoggedPomodoros.setText("Until now:" + DropBoxConnection.countPomodoros());
 	}
 	
-	private void showMostRecentPomodoros() {
-		TextView totalLoggedPomodoros = (TextView) findViewById(R.id.totalLoggedPomodoros);
-		totalLoggedPomodoros.setText("Until now:" + DropBoxConnection.countPomodoros());
+	private void showLastLoggedPomodoros() {
+		ListView lastPomodoros = (ListView) findViewById(R.id.lastPomodoros);
+		
+		ArrayAdapter<String> arrayAdapter =      
+			         new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, DropBoxConnection.last3Pomodoros());
+		 lastPomodoros.setAdapter(arrayAdapter);  
 	}
 	
+
 
 	private void showLinkToDropboxScreenIfNecesary() {
 		if (!DropBoxConnection.getAccountManager().hasLinkedAccount()) {
