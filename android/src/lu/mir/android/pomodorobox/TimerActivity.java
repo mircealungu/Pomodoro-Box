@@ -166,7 +166,7 @@ public class TimerActivity extends Activity implements OnInitListener {
 	    new AlertDialog.Builder(this)
 	        .setIcon(android.R.drawable.ic_dialog_alert)
 	        .setTitle("Stopping the counter")
-	        .setMessage("This will reset the pomodoro. Sure you want to do this?")
+	        .setMessage("This will reset your pomodoro. Ok?")
 	        .setPositiveButton("Yes", new DialogInterface.OnClickListener()
 	    {
 	        @Override
