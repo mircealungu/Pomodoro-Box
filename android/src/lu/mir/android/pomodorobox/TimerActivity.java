@@ -6,11 +6,13 @@ import java.util.Locale;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.TextToSpeech.OnInitListener;
 import android.support.v4.app.NavUtils;
@@ -29,16 +31,28 @@ import com.dropbox.sync.android.DbxPath.InvalidPathException;
  */
 
 public class TimerActivity extends Activity implements OnInitListener {
+
+	 class SecondElapsedReceiver extends BroadcastReceiver {
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			long time =  intent.getLongExtra("SECONDS", 0);
+			updateTimer(time);
+		}
+	}
+
+	
 	// Used to save the state between Activity restarts (which can happen even when orientation is changed)
 	static final String STATE_MILLIS = "millisRemaining";
 	
 	private TextToSpeech tts;
 	private String message;
 	private static long SECOND = 1000;
-	private long initial_count;
-	private long current_count;
 
-	private CountDownTimer timer;
+	private SecondElapsedReceiver broadcastReceiver = null;
+	Boolean myReceiverIsRegistered = false;
+
+	private Intent xintent;
 	
 
 	protected void updateTimer(long millisUntilFinished) {
@@ -53,6 +67,13 @@ public class TimerActivity extends Activity implements OnInitListener {
 		counterView.setText( minuteString + ":" + secondsString);
 	}
 
+	@Override
+	public void finish() {
+		xintent = new Intent(this, TimerService.class);
+ 		stopService(xintent);
+		super.finish();
+	}
+
 	protected void speak(String text) {
 		tts.setLanguage(Locale.US);
 		tts.speak(text, TextToSpeech.QUEUE_ADD, null);
@@ -65,43 +86,28 @@ public class TimerActivity extends Activity implements OnInitListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		// Initialize all those that are null!
+		broadcastReceiver = new SecondElapsedReceiver();
+		tts = new TextToSpeech(this, this);
+		
 		// Set the text view as the activity layout
 		setContentView(R.layout.activity_countdown);
+		TextView activityView = (TextView) findViewById(R.id.activity);
+		activityView.setText(message);
+
+		// Start the counting service
 
 		Intent intent = getIntent();
 		message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
 		
-		 if (savedInstanceState != null) {
-			 initial_count = savedInstanceState.getLong(STATE_MILLIS);
-		 } else {
-			 initial_count = SECOND * intent.getLongExtra(MainActivity.EXTRA_TIME_IN_SECONDS, 7);
+		 if (savedInstanceState == null) {
+			 long initial_count = SECOND * intent.getLongExtra(MainActivity.EXTRA_TIME_IN_SECONDS, 7);
+			 xintent = new Intent(this, TimerService.class);
+			 xintent.putExtra(MainActivity.EXTRA_TIME_IN_SECONDS, initial_count);
+			 xintent.putExtra("MESSAGE", message);
+			 startService(xintent);			 
 		 }
-
-		// Create the text view
-		TextView activityView = (TextView) findViewById(R.id.activity);
-		activityView.setText(message);
-
-		tts = new TextToSpeech(this, this);
-
-		timer = new CountDownTimer(initial_count, SECOND) {
-			public void onTick(long millisUntilFinished) {
-				current_count = millisUntilFinished;
-				updateTimer(millisUntilFinished);
-			}
-
-			public void onFinish() {
-				updateTimer(1);
-				speak("Well done!");
-				finish();
-				try {
-					logPomodoroToDropbox();
-				} catch (InvalidPathException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}.start();
 	}
 	
 	
@@ -140,26 +146,24 @@ public class TimerActivity extends Activity implements OnInitListener {
 	}
 	
 	@Override
-	public void onSaveInstanceState(Bundle savedInstanceState) {
-	    // Save the user's current game state
-	    savedInstanceState.putLong(STATE_MILLIS, current_count);
-	    // If not canceled, the timer which is a separate thread will keep running, and we'll end up with multiple 
-	    // timers finishing and thus multiple actions logged. Not cool.
-	    
-	    
-	    // Always call the superclass so it can save the view hierarchy state
-	    super.onSaveInstanceState(savedInstanceState);
+	protected void onResume() {
+
+		if (!myReceiverIsRegistered) {
+		    registerReceiver(broadcastReceiver, new IntentFilter("lu.mir.android.pomodorobox.SECOND_ELAPSED"));
+		    myReceiverIsRegistered = true;
+		}
+		super.onResume();
 	}
-	
-	public void onRestoreInstanceState(Bundle savedInstanceState) {
-	    // Always call the superclass so it can restore the view hierarchy
-	    super.onRestoreInstanceState(savedInstanceState);
-	   
-	    // Restore state members from saved instance
-	    initial_count = savedInstanceState.getLong(STATE_MILLIS);
-	    
+
+	@Override
+	protected void onPause() {
+		if (myReceiverIsRegistered) {
+		    unregisterReceiver(broadcastReceiver);
+		    myReceiverIsRegistered = false;
+		}
+		super.onPause();
 	}
-	
+
 	@Override
 	public void onBackPressed() {
 	    new AlertDialog.Builder(this)
@@ -170,7 +174,6 @@ public class TimerActivity extends Activity implements OnInitListener {
 	    {
 	        @Override
 	        public void onClick(DialogInterface dialog, int which) {
-	            timer.cancel();
 	            finish();
 	        }
 

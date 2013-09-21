@@ -17,6 +17,9 @@
         android:label="@string/app_name"
         android:name="PomodoroBoxApplication"
         android:theme="@style/AppTheme" >
+        
+        <service android:name="lu.mir.android.pomodorobox.TimerService" />
+        
         <activity
             android:name="lu.mir.android.pomodorobox.MainActivity"
             android:label="@string/app_name" >
@@ -58,6 +61,9 @@
     <category android:name="android.intent.category.DEFAULT" />
   </intent-filter>
 </activity>
+
+
+ 
 <service
   android:name="com.dropbox.sync.android.DbxSyncService"
   android:enabled="true"
