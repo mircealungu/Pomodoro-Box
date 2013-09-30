@@ -68,7 +68,11 @@ public class DropBoxConnection {
 		
 		try {
 			dbxFs = DbxFileSystem.forAccount(getAccountManager().getLinkedAccount());
-			logFile = dbxFs.open(logFileName);
+			if (dbxFs.exists(logFileName)){
+				logFile = dbxFs.open(logFileName);
+			} else {
+				logFile = dbxFs.create(logFileName);
+			}
 			logFile.update();
 			BufferedReader reader = new BufferedReader(new InputStreamReader(logFile.getReadStream()));
 			while ((lastLine=reader.readLine()) != null) lines.add(lastLine);
@@ -96,7 +100,12 @@ public class DropBoxConnection {
 		
 		try {
 			dbxFs = DbxFileSystem.forAccount(getAccountManager().getLinkedAccount());
-			logFile = dbxFs.open(logFileName);
+			if (dbxFs.exists(logFileName)) {
+				logFile = dbxFs.open(logFileName);
+			} else {
+				logFile = dbxFs.create(logFileName);
+			}
+			
 			logFile.update();
 			BufferedReader reader = new BufferedReader(new InputStreamReader(logFile.getReadStream()));
 			while (reader.readLine() != null) lines ++;

@@ -7,9 +7,7 @@ import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.Menu;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 
 public class MainActivity extends Activity {
@@ -22,10 +20,8 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		showLinkToDropboxScreenIfNecesary();
 		setContentView(R.layout.activity_main);
 		showTotalLoggedPomodoros();
-		showLastLoggedPomodoros();
 		showKeyboardWhenStartingActivity();
 	}
 	
@@ -33,28 +29,12 @@ public class MainActivity extends Activity {
 	protected void onResume() {
 		super.onResume();
 		showTotalLoggedPomodoros();
-		showLastLoggedPomodoros();
+		//showLastLoggedPomodoros();
 	}
 
 	private void showTotalLoggedPomodoros() {
 		TextView totalLoggedPomodoros = (TextView) findViewById(R.id.totalLoggedPomodoros);
 		totalLoggedPomodoros.setText("Until now:" + DropBoxConnection.countPomodoros());
-	}
-	
-	private void showLastLoggedPomodoros() {
-		ListView lastPomodoros = (ListView) findViewById(R.id.lastPomodoros);
-		
-		ArrayAdapter<String> arrayAdapter =      
-			         new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, DropBoxConnection.last3Pomodoros());
-		 lastPomodoros.setAdapter(arrayAdapter);  
-	}
-	
-
-
-	private void showLinkToDropboxScreenIfNecesary() {
-		if (!DropBoxConnection.getAccountManager().hasLinkedAccount()) {
-			showWelcomeScreen();
-		}
 	}
 
 	private void showKeyboardWhenStartingActivity() {
