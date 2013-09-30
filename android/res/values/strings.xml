@@ -7,17 +7,26 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="hello_world">Hello world!</string>
+    
     <string name="linkToDropbox">Link to Dropbox!</string>
     <string name="unlinkFromDropbox">Unlink from Dropbox!</string>
+	<string name="connect_to_dropbox">1Pomodoro uses DropbBox to collect your pomodoros across devices. Before continuing, please allow the app to write to your dropbox account.</string>
+    
     <string name="title_activity_welcome">Welcome</string>
+    <string name="title_timer_activity">PomodoroBox</string>
     <string name="welcome">Welcome</string>
     <string name="button_blitz">Blitz</string>
     <string name="warning_reset">This will reset your pomodoro. OK?</string>
     <string name="notification_title">Pomodoro in progress</string>
-    <string name="notification_content">Pomodoro in progress</string>
-    <string name="notification_progress_text">more min</string>
-    <string name="connect_to_dropbox">1Pomodoro uses DropbBox to collect your pomodoros across devices. Before continuing, please allow the app to write to your dropbox account.</string>
+    <string name="pomodoro_in_progress">Pomodoro in progress</string>
+    <string name="notification_progress_text">min remaining</string>
+    <string name="notification_progress_state_pomodoro">Pomodoro</string>
+    <string name="notification_progress_state_break">Break</string>
+    
+    
     <string name="congratulation_message">Well done sir!</string>
+    <string name="ready_for_next_one">Ready for the next one?</string>
+    <string name="break_time">Break time!</string>
      
      
 

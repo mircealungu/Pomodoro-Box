@@ -14,12 +14,7 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
-	public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
-	public final static String EXTRA_TIME_IN_SECONDS = "com.example.myfirstapp.TIME";
-	
 	final String welcomeScreenShownPref = "welcomeScreenShown";
-	
-	private static final int POMODORO_DURATION = 25;
 	
 	 SimpleCursorAdapter mAdapter;
 
@@ -32,7 +27,6 @@ public class MainActivity extends Activity {
 		showTotalLoggedPomodoros();
 		showLastLoggedPomodoros();
 		showKeyboardWhenStartingActivity();
-		
 	}
 	
 	@Override
@@ -80,8 +74,9 @@ public class MainActivity extends Activity {
 		Intent intent = new Intent(this, TimerActivity.class);
 		EditText editText = (EditText) findViewById(R.id.edit_message);
 		String message = editText.getText().toString();
-		intent.putExtra(EXTRA_MESSAGE, message);
-		intent.putExtra(EXTRA_TIME_IN_SECONDS, (long)60 * POMODORO_DURATION + 1);
+		intent.putExtra(TimerActivity.EXTRA_POMODORO_NAME, message);
+		intent.putExtra(TimerActivity.EXTRA_POMODORO_DURATION, TimerActivity.POMODORO_DURATION);
+		intent.putExtra(TimerActivity.EXTRA_POMODORO_BREAK_DURATION, TimerActivity.POMODORO_BREAK_DURATION);
 		startActivity(intent);
 	}
 	
@@ -90,8 +85,9 @@ public class MainActivity extends Activity {
 		Intent intent = new Intent(this, TimerActivity.class);
 		EditText editText = (EditText) findViewById(R.id.edit_message);
 		String message = editText.getText().toString();
-		intent.putExtra(EXTRA_MESSAGE, message);
-		intent.putExtra(EXTRA_TIME_IN_SECONDS, (long)10);
+		intent.putExtra(TimerActivity.EXTRA_POMODORO_NAME, message);
+		intent.putExtra(TimerActivity.EXTRA_POMODORO_DURATION, TimerActivity.BLITZ_DURATION);
+		intent.putExtra(TimerActivity.EXTRA_POMODORO_BREAK_DURATION, TimerActivity.BLITZ_BREAK_DURATION);
 		startActivity(intent);
 	}	
 	
