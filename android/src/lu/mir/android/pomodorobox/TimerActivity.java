@@ -36,8 +36,8 @@ public class TimerActivity extends Activity implements OnInitListener {
 
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			long time =  intent.getLongExtra("SECONDS", 0);
-			updateTimer(time);
+			long time =  intent.getLongExtra(TimerService.TIMER_BROADCAST_MESSAGE_PAYLOAD, 0);
+			updateTheTimerComponent(time);
 		}
 	}
 
@@ -46,7 +46,7 @@ public class TimerActivity extends Activity implements OnInitListener {
 	static final String STATE_MILLIS = "millisRemaining";
 	
 	private TextToSpeech tts;
-	private String message;
+	private String pomodoroName;
 	private static long SECOND = 1000;
 
 	private SecondElapsedReceiver broadcastReceiver = null;
@@ -55,7 +55,12 @@ public class TimerActivity extends Activity implements OnInitListener {
 	private Intent xintent;
 	
 
-	protected void updateTimer(long millisUntilFinished) {
+	/**
+	 * Update the timer component
+	 * Gets called every second
+	 * @param millisUntilFinished
+	 */
+	protected void updateTheTimerComponent(long millisUntilFinished) {
 		
 		long minsToFinish = millisUntilFinished / 1000 / 60;
 		long secs = millisUntilFinished / 1000 % 60;
@@ -80,7 +85,7 @@ public class TimerActivity extends Activity implements OnInitListener {
 	}
 
 	protected void logPomodoroToDropbox() throws InvalidPathException, IOException {
-		DropBoxConnection.logPomodoroToDropbox(message);
+		DropBoxConnection.logPomodoroToDropbox(pomodoroName);
 	}
 
 	@Override
@@ -91,26 +96,25 @@ public class TimerActivity extends Activity implements OnInitListener {
 		broadcastReceiver = new SecondElapsedReceiver();
 		tts = new TextToSpeech(this, this);
 		
-		// Set the text view as the activity layout
-		setContentView(R.layout.activity_countdown);
-		TextView activityView = (TextView) findViewById(R.id.activity);
-		activityView.setText(message);
 
 		// Start the counting service
 
 		Intent intent = getIntent();
-		message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+		pomodoroName = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
 		
 		 if (savedInstanceState == null) {
 			 long initial_count = SECOND * intent.getLongExtra(MainActivity.EXTRA_TIME_IN_SECONDS, 7);
 			 xintent = new Intent(this, TimerService.class);
 			 xintent.putExtra(MainActivity.EXTRA_TIME_IN_SECONDS, initial_count);
-			 xintent.putExtra("MESSAGE", message);
+			 xintent.putExtra("MESSAGE", pomodoroName);
 			 startService(xintent);			 
 		 }
+		 
+		// Set the text view as the activity layout
+		setContentView(R.layout.activity_countdown);
+		TextView activityView = (TextView) findViewById(R.id.activity);
+		activityView.setText(pomodoroName);
 	}
-	
-	
 
 	/**
 	 * Set up the {@link android.app.ActionBar}, if the API is available.
@@ -147,10 +151,12 @@ public class TimerActivity extends Activity implements OnInitListener {
 	
 	@Override
 	protected void onResume() {
-
 		if (!myReceiverIsRegistered) {
-		    registerReceiver(broadcastReceiver, new IntentFilter("lu.mir.android.pomodorobox.SECOND_ELAPSED"));
+		    registerReceiver(broadcastReceiver, new IntentFilter(TimerService.TIMER_BROADCAST_MESSAGE));
 		    myReceiverIsRegistered = true;
+		} else {
+			// resuming. 
+			// i am registered to an event
 		}
 		super.onResume();
 	}
@@ -169,7 +175,7 @@ public class TimerActivity extends Activity implements OnInitListener {
 	    new AlertDialog.Builder(this)
 	        .setIcon(android.R.drawable.ic_dialog_alert)
 	        .setTitle("Stopping the counter")
-	        .setMessage("This will reset your pomodoro. Ok?")
+	        .setMessage(R.string.warning_reset)
 	        .setPositiveButton("Yes", new DialogInterface.OnClickListener()
 	    {
 	        @Override

@@ -31,7 +31,7 @@
         </activity>
         <activity
             android:name="lu.mir.android.pomodorobox.TimerActivity"
-            android:label="@string/title_activity_display_message"
+            android:label="@string/notification_title"
             android:parentActivityName="lu.mir.android.pomodorobox.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

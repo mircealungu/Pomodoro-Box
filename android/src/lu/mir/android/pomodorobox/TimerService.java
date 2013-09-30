@@ -23,6 +23,8 @@ public class TimerService extends Service implements OnInitListener {
 
 	  public static final int MSG_INCREMENT = 1;
 	  public static final int MSG_COUNTER = 2;
+	  public static final String TIMER_BROADCAST_MESSAGE = "lu.mir.android.pomodorobox.SECOND_ELAPSED";
+	  public static final String TIMER_BROADCAST_MESSAGE_PAYLOAD = "SECOND";
 
 		private static long SECOND = 1000;
 		private long initial_count;
@@ -32,9 +34,6 @@ public class TimerService extends Service implements OnInitListener {
 	  
 		private int ONGOING_NOTIFICATION_ID = 101;
 		private Builder mNotifyBuilder;
-	  
-
-
 
 	@Override
 		public void onDestroy() {
@@ -44,22 +43,24 @@ public class TimerService extends Service implements OnInitListener {
 		}
 
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		
 
 		mNotifyBuilder = new NotificationCompat.Builder(this)
-	    .setContentTitle("Pomodoro in progress...")
-	    .setContentText("Pomodoro in progress...")
+	    .setContentTitle(getString(R.string.welcome))
+	    .setContentText(getString(R.string.notification_content))
 	    .setSmallIcon(R.drawable.ic_launcher)
 	    ;
 		Notification notification = mNotifyBuilder.build();
 
 		
-		Intent notificationIntent = new Intent(this, TimerActivity.class);
+		Intent notificationIntent = new Intent("lu.mir.android.pomodorobox.TimerActivity");
 		PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
-		notification.setLatestEventInfo(this, "Pomodoro in progress",
+		notification.setLatestEventInfo(this, getString(R.string.notification_content),
 		        message, pendingIntent);
+
 		startForeground(ONGOING_NOTIFICATION_ID, notification);
 		
 		
@@ -71,15 +72,17 @@ public class TimerService extends Service implements OnInitListener {
 				private NotificationManager mNotificationManager;
 
 				public void onTick(long millisUntilFinished) {
-					Intent i = new Intent("lu.mir.android.pomodorobox.SECOND_ELAPSED");
-					i.putExtra("SECONDS", millisUntilFinished);
+					Intent i = new Intent(TIMER_BROADCAST_MESSAGE);
+					i.putExtra(TIMER_BROADCAST_MESSAGE_PAYLOAD, millisUntilFinished);
 					sendBroadcast(i);
 					
 					// update the notification bar
 					long minsToFinish = millisUntilFinished / 1000 / 60;
+					
 					String minuteString = ((minsToFinish < 10)?"0":"") + minsToFinish;
 					 mNotifyBuilder.setContentText(message)
-					 .setContentTitle("Pomodoro: " + " " + minuteString + " more min");
+					 .setContentTitle(minuteString + getString(R.string.notification_progress_text))
+					 .setProgress(25, 25 - (int)minsToFinish, false);
 					 
 					// update the notification
 					 mNotificationManager =
@@ -92,7 +95,7 @@ public class TimerService extends Service implements OnInitListener {
 
 				public void onFinish() {
 					//updateTimer(1);
-					speak("Well done man!");
+					speak(getString(R.string.congratulation_message));
 					stopSelf();
 					try {
 						DropBoxConnection.logPomodoroToDropbox(message);
@@ -103,7 +106,6 @@ public class TimerService extends Service implements OnInitListener {
 					}
 				}
 			}.start();
-		
 		 return super.onStartCommand(intent, flags, startId);
 	}
 	  
@@ -123,7 +125,6 @@ public class TimerService extends Service implements OnInitListener {
 	}
 	
 	protected void speak(String text) {
-	
 		tts.setLanguage(Locale.US);
 		tts.speak(text, TextToSpeech.QUEUE_ADD, null);
 	}
@@ -132,7 +133,6 @@ public class TimerService extends Service implements OnInitListener {
 	@Override
 	public void onInit(int status) {
 		// TODO Auto-generated method stub
-		
 	}
 
 

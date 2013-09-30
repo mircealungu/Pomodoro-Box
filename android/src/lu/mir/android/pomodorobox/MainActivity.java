@@ -4,13 +4,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SimpleCursorAdapter;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -42,7 +40,6 @@ public class MainActivity extends Activity {
 		super.onResume();
 		showTotalLoggedPomodoros();
 		showLastLoggedPomodoros();
-		Log.d(EXTRA_MESSAGE, "resuming...");
 	}
 
 	private void showTotalLoggedPomodoros() {
