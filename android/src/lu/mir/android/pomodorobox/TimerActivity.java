@@ -77,8 +77,7 @@ public class TimerActivity extends Activity implements OnInitListener {
 
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			long time = intent.getLongExtra(
-					TimerService.TIMER_BROADCAST_MESSAGE_PAYLOAD, 0);
+			long time = intent.getLongExtra(TimerService.TIMER_BROADCAST_MESSAGE_PAYLOAD, 0);
 			int state = intent.getIntExtra(TimerService.TIMER_BROADCAST_MESSAGE_PAYLOAD_STATE, 0);
 			
 			if (state == TimerService.STATE_DONE)
