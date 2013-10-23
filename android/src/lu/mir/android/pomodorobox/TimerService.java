@@ -1,7 +1,6 @@
 package lu.mir.android.pomodorobox;
 
 import java.io.IOException;
-import java.util.Locale;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -11,34 +10,31 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.CountDownTimer;
 import android.os.IBinder;
-import android.speech.tts.TextToSpeech;
 import android.speech.tts.TextToSpeech.OnInitListener;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationCompat.Builder;
 import android.widget.Toast;
+import static lu.mir.android.pomodorobox.Duration.SECOND;
 
 import com.dropbox.sync.android.DbxPath.InvalidPathException;
 
 public class TimerService extends Service implements OnInitListener {
 
-	public static final int MSG_INCREMENT = 1;
-	public static final int MSG_COUNTER = 2;
+	private int ONGOING_NOTIFICATION_ID = 101;
+	
 	public static final String TIMER_BROADCAST_MESSAGE = "lu.mir.android.pomodorobox.SECOND_ELAPSED";
 	public static final String TIMER_BROADCAST_MESSAGE_PAYLOAD = "SECOND";
 	public static final String TIMER_BROADCAST_MESSAGE_PAYLOAD_STATE = "TIMER_STATE";
 	
 	public static final int STATE_POMODORO = 1;
 	public static final int STATE_BREAK = 2;
-	public static final int STATE_DONE = 3;
+	public static final int STATE_DONE = 3;	
 
-	private long pomodoro_duration;
+	private Pomodoro pomodoro;
 	private CountDownTimer timer;
-	private TextToSpeech tts;
-	private String message;
-
-	private int ONGOING_NOTIFICATION_ID = 101;
+	private EnglishSpeechEngine speechEngine;
 	private Builder mNotifyBuilder;
-	private long pomodoro_break_duration;
+	
 
 	@Override
 	public void onDestroy() {
@@ -51,13 +47,10 @@ public class TimerService extends Service implements OnInitListener {
 	public int onStartCommand(Intent intent, int flags, int startId) {
 
 		// Get the payload and save it locally
-		pomodoro_duration = intent.getLongExtra(TimerActivity.EXTRA_POMODORO_DURATION,	7);
-		pomodoro_break_duration = intent.getLongExtra(TimerActivity.EXTRA_POMODORO_BREAK_DURATION,	7);
-		message = intent.getStringExtra(TimerActivity.EXTRA_POMODORO_NAME);
-		
+		pomodoro = (Pomodoro) intent.getSerializableExtra(TimerActivity.EXTRA_POMODORO);
 
 		// Start the timer
-		timer = new CountDownTimer(pomodoro_duration, TimerActivity.SECOND) {
+		timer = new CountDownTimer(pomodoro.getPomodoroDuration(), SECOND) {
 			public void onTick(long millisUntilFinished) {
 				broadcastSecondElapsed(millisUntilFinished, STATE_POMODORO);
 				updateTaskbar(millisUntilFinished, getString(R.string.notification_progress_state_pomodoro));
@@ -74,9 +67,7 @@ public class TimerService extends Service implements OnInitListener {
 	}
 	
 	public void startBreakTimer() {
-		
-		timer = new CountDownTimer(pomodoro_break_duration, TimerActivity.SECOND) {
-			
+		timer = new CountDownTimer(pomodoro.getPomodoroBreakDuration(), SECOND) {
 			@Override
 			public void onTick(long millisUntilFinished) {
 				broadcastSecondElapsed(millisUntilFinished, STATE_BREAK);
@@ -85,7 +76,7 @@ public class TimerService extends Service implements OnInitListener {
 			
 			@Override
 			public void onFinish() {
-				speak(getString(R.string.ready_for_next_one));
+				speechEngine.speak(getString(R.string.ready_for_next_one));
 				broadcastSecondElapsed(0, STATE_DONE);
 				stopSelf();
 			}
@@ -105,7 +96,7 @@ public class TimerService extends Service implements OnInitListener {
 
 		String minuteString = ((minsToFinish < 10) ? "0" : "") + minsToFinish;
 		mNotifyBuilder
-				.setContentTitle(message)
+				.setContentTitle(pomodoro.getPomodoroName())
 				.setContentText( 
 						state + ":" +
 						minuteString +	" " + 
@@ -131,7 +122,7 @@ public class TimerService extends Service implements OnInitListener {
 				"lu.mir.android.pomodorobox.TimerActivity");
 		PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
 				notificationIntent, 0);
-		notification.setLatestEventInfo(this, notificationText, message,
+		notification.setLatestEventInfo(this, notificationText, pomodoro.getPomodoroName(),
 				pendingIntent);
 
 		startForeground(ONGOING_NOTIFICATION_ID, notification);
@@ -141,7 +132,7 @@ public class TimerService extends Service implements OnInitListener {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		tts = new TextToSpeech(this, this);
+		speechEngine = new EnglishSpeechEngine(this, this);
 	}
 
 	@Override
@@ -150,20 +141,15 @@ public class TimerService extends Service implements OnInitListener {
 		return null;
 	}
 
-	protected void speak(String text) {
-		tts.setLanguage(Locale.US);
-		tts.speak(text, TextToSpeech.QUEUE_ADD, null);
-	}
-
 	@Override
 	public void onInit(int status) {
 		// TODO Auto-generated method stub
 	}
 
 	private void anounceAndLogPomodoroFinished() {
-		speak(getString(R.string.congratulation_message));
+		speechEngine.speak(getString(R.string.congratulation_message));
 		try {
-			DropBoxConnection.logPomodoroToDropbox(message);
+			DropBoxConnection.logPomodoroToDropbox(pomodoro.getPomodoroName());
 		} catch (InvalidPathException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

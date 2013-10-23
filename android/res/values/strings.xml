@@ -10,7 +10,7 @@
     
     <string name="linkToDropbox">Link to Dropbox!</string>
     <string name="unlinkFromDropbox">Unlink from Dropbox!</string>
-	<string name="connect_to_dropbox">Pomodoro Box uses DropbBox to collect your pomodoros across devices. Before continuing, please allow the app to write to your dropbox account.</string>
+	<string name="connect_to_dropbox">Pomodoro Box uses DropBox to collect your pomodoros across devices. Before continuing, please allow the app to write to your dropbox account.</string>
     
     <string name="title_activity_welcome">Welcome</string>
     <string name="title_timer_activity">PomodoroBox</string>

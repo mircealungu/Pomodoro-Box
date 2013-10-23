@@ -1,9 +1,12 @@
 package lu.mir.android.pomodorobox;
 
+import static lu.mir.android.pomodorobox.Duration.BLITZ_BREAK_DURATION;
+import static lu.mir.android.pomodorobox.Duration.BLITZ_DURATION;
+import static lu.mir.android.pomodorobox.Duration.POMODORO_BREAK_DURATION;
+import static lu.mir.android.pomodorobox.Duration.POMODORO_DURATION;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.Menu;
 import android.view.View;
 import android.view.WindowManager;
@@ -13,8 +16,6 @@ import android.widget.TextView;
 public class MainActivity extends Activity {
 
 	final String welcomeScreenShownPref = "welcomeScreenShown";
-	
-	 SimpleCursorAdapter mAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,13 @@ public class MainActivity extends Activity {
 		showTotalLoggedPomodoros();
 		//showLastLoggedPomodoros();
 	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
 
 	private void showTotalLoggedPomodoros() {
 		TextView totalLoggedPomodoros = (TextView) findViewById(R.id.totalLoggedPomodoros);
@@ -42,21 +50,16 @@ public class MainActivity extends Activity {
 				WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
 
 	/** Called when the user clicks the Send button */
 	public void startCounter(View view) {
 		Intent intent = new Intent(this, TimerActivity.class);
 		EditText editText = (EditText) findViewById(R.id.edit_message);
 		String message = editText.getText().toString();
-		intent.putExtra(TimerActivity.EXTRA_POMODORO_NAME, message);
-		intent.putExtra(TimerActivity.EXTRA_POMODORO_DURATION, TimerActivity.POMODORO_DURATION);
-		intent.putExtra(TimerActivity.EXTRA_POMODORO_BREAK_DURATION, TimerActivity.POMODORO_BREAK_DURATION);
+		
+		Pomodoro newPomodoro = new Pomodoro(message, POMODORO_DURATION, POMODORO_BREAK_DURATION);
+		intent.putExtra(TimerActivity.EXTRA_POMODORO, newPomodoro);
+				
 		startActivity(intent);
 	}
 	
@@ -65,13 +68,13 @@ public class MainActivity extends Activity {
 		Intent intent = new Intent(this, TimerActivity.class);
 		EditText editText = (EditText) findViewById(R.id.edit_message);
 		String message = editText.getText().toString();
-		intent.putExtra(TimerActivity.EXTRA_POMODORO_NAME, message);
-		intent.putExtra(TimerActivity.EXTRA_POMODORO_DURATION, TimerActivity.BLITZ_DURATION);
-		intent.putExtra(TimerActivity.EXTRA_POMODORO_BREAK_DURATION, TimerActivity.BLITZ_BREAK_DURATION);
+		
+		Pomodoro newPomodoro = new Pomodoro(message, BLITZ_DURATION, BLITZ_BREAK_DURATION);
+		intent.putExtra(TimerActivity.EXTRA_POMODORO, newPomodoro);
+
 		startActivity(intent);
 	}	
 	
-
 	public void showWelcomeScreen() {
 		Intent intent = new Intent(this, WelcomeActivity.class);
 		startActivity(intent);
