@@ -97,7 +97,7 @@
 <exec executable="${adb}" failonerror="true">
 <arg line="${adb.device.arg}"/>
 <arg value="pull" />
-<arg value="/data/data/${tested.project.app.package}/junit-report.xml" />
+<arg value="/data/data/${tested.project.app.package}/files/junit-report.xml" />
 <arg value="junitreports/junit-report.xml" />
 </exec>
 </target>
