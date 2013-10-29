@@ -1,6 +1,7 @@
 package lu.mir.android.pomodorobox.test;
 
 import junit.framework.TestCase;
+import lu.mir.android.pomodorobox.Pomodoro;
 
 public class TestPomodoro extends TestCase {
 
@@ -13,7 +14,8 @@ public class TestPomodoro extends TestCase {
 	}
 	
 	public void testTrue() {
-		assertEquals(1, 1);
+		Pomodoro current = new Pomodoro("testing testing", 25, 5);
+		assertEquals(current.getPomodoroName(), "testing testing");
 	}
 
 }

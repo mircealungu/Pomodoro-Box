@@ -55,7 +55,6 @@ public class DropBoxConnection {
 		} finally {
 			logFile.close();	
 		}
-		
 	}
 	
 	public static List<String> last3Pomodoros() {
