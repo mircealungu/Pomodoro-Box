@@ -1,4 +1,4 @@
-package lu.mir.android.pomodorobox;
+package lu.mir.android.pomodorobox.util;
 
 public final class Duration {
 

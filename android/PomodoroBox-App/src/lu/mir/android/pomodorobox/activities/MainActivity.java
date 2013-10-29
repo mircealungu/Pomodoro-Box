@@ -1,9 +1,13 @@
-package lu.mir.android.pomodorobox;
+package lu.mir.android.pomodorobox.activities;
 
-import static lu.mir.android.pomodorobox.Duration.BLITZ_BREAK_DURATION;
-import static lu.mir.android.pomodorobox.Duration.BLITZ_DURATION;
-import static lu.mir.android.pomodorobox.Duration.POMODORO_BREAK_DURATION;
-import static lu.mir.android.pomodorobox.Duration.POMODORO_DURATION;
+import static lu.mir.android.pomodorobox.util.Duration.BLITZ_BREAK_DURATION;
+import static lu.mir.android.pomodorobox.util.Duration.BLITZ_DURATION;
+import static lu.mir.android.pomodorobox.util.Duration.POMODORO_BREAK_DURATION;
+import static lu.mir.android.pomodorobox.util.Duration.POMODORO_DURATION;
+import lu.mir.android.pomodorobox.Pomodoro;
+import lu.mir.android.pomodorobox.PomodoroBoxApplication;
+import lu.mir.android.pomodorobox.R;
+import lu.mir.android.pomodorobox.persistence.PomodoroDatabase;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;

@@ -1,7 +1,8 @@
-package lu.mir.android.pomodorobox;
+package lu.mir.android.pomodorobox.activities;
 
 import java.util.List;
 
+import lu.mir.android.pomodorobox.R;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;

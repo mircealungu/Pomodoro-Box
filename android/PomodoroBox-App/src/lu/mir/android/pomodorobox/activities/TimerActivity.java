@@ -1,5 +1,9 @@
-package lu.mir.android.pomodorobox;
+package lu.mir.android.pomodorobox.activities;
 
+import lu.mir.android.pomodorobox.Pomodoro;
+import lu.mir.android.pomodorobox.R;
+import lu.mir.android.pomodorobox.TimerService;
+import lu.mir.android.pomodorobox.persistence.PomodoroDatabase;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ActivityManager;

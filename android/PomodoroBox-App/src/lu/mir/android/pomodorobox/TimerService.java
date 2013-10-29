@@ -1,6 +1,10 @@
 package lu.mir.android.pomodorobox;
 
-import static lu.mir.android.pomodorobox.Duration.SECOND;
+import static lu.mir.android.pomodorobox.util.Duration.SECOND;
+import lu.mir.android.pomodorobox.activities.MainActivity;
+import lu.mir.android.pomodorobox.activities.TimerActivity;
+import lu.mir.android.pomodorobox.persistence.PomodoroDatabase;
+import lu.mir.android.pomodorobox.util.EnglishSpeechEngine;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;

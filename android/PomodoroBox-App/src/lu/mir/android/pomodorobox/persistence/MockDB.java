@@ -1,6 +1,7 @@
-package lu.mir.android.pomodorobox;
+package lu.mir.android.pomodorobox.persistence;
 
 import java.io.Serializable;
+
 
 import android.content.Context;
 

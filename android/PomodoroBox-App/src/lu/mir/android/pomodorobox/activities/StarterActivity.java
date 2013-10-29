@@ -1,5 +1,8 @@
-package lu.mir.android.pomodorobox;
+package lu.mir.android.pomodorobox.activities;
 
+import lu.mir.android.pomodorobox.persistence.DropBoxConnection;
+import lu.mir.android.pomodorobox.persistence.DropBoxFileDB;
+import lu.mir.android.pomodorobox.persistence.PomodoroDatabase;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;

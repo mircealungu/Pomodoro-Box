@@ -1,10 +1,10 @@
 package lu.mir.android.pomodorobox.test;
 
-import lu.mir.android.pomodorobox.DropBoxFileDB;
-import lu.mir.android.pomodorobox.MainActivity;
-import lu.mir.android.pomodorobox.MockDB;
-import lu.mir.android.pomodorobox.PomodoroDatabase;
 import lu.mir.android.pomodorobox.R;
+import lu.mir.android.pomodorobox.activities.MainActivity;
+import lu.mir.android.pomodorobox.persistence.DropBoxFileDB;
+import lu.mir.android.pomodorobox.persistence.MockDB;
+import lu.mir.android.pomodorobox.persistence.PomodoroDatabase;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;

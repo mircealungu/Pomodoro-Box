@@ -1,4 +1,4 @@
-package lu.mir.android.pomodorobox;
+package lu.mir.android.pomodorobox.util;
 
 import java.util.Locale;
 
@@ -11,7 +11,7 @@ public class EnglishSpeechEngine extends TextToSpeech {
 		super(context, listener);
 	}
 	
-	protected void speak(String text) {
+	public void speak(String text) {
 		setLanguage(Locale.US);
 		speak(text, TextToSpeech.QUEUE_ADD, null);
 	}
