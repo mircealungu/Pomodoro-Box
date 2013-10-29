@@ -3,3 +3,5 @@ android/*/gen/*
 .DS_Store
 android/.metadata/*
 *.log
+android/PomodoroBox-App/local.properties
+android/PomodoroBox-Test/local.properties
