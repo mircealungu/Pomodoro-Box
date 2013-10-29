@@ -35,8 +35,18 @@ public class DropBoxConnection {
 				PomodoroBoxApplication.context(), DBX_APP_KEY, DBX_APP_SECRET);
 		return dbxAcctMgr;
 	}
+	
+	public void unlinkFromDropbox(View view) {
+		DbxAccountManager mDbxAcctMgr = DbxAccountManager.getInstance(
+				PomodoroBoxApplication.context(), DBX_APP_KEY, DBX_APP_SECRET);
+		mDbxAcctMgr.unlink();
+	}
+	
+	/*
+	 * Legacy
+	 */
 
-	public static void logPomodoroToDropbox(String message) throws InvalidPathException, IOException {
+	private static void logPomodoroToDropbox(String message) throws InvalidPathException, IOException {
 		Date date = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat(LOGFILE_DATE_FORMAT);
 		DbxPath logFileName = new DbxPath(LOGFILE);
@@ -57,7 +67,7 @@ public class DropBoxConnection {
 		}
 	}
 	
-	public static List<String> last3Pomodoros() {
+	private static List<String> last3Pomodoros() {
 		ArrayList <String> lines = new ArrayList<String>();
 		
 		DbxFileSystem dbxFs;
@@ -91,7 +101,7 @@ public class DropBoxConnection {
 		return lines.subList(lines.size()-3, lines.size());
 	}
 
-	public static int countPomodoros() {
+	private static int countPomodoros() {
 		int lines = 0;
 		DbxFileSystem dbxFs;
 		DbxFile logFile = null;
@@ -118,16 +128,13 @@ public class DropBoxConnection {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			logFile.close();
+			if (logFile != null)
+				logFile.close();
 		}
 				
 		return lines;
 	}
 
-	public void unlinkFromDropbox(View view) {
-		DbxAccountManager mDbxAcctMgr = DbxAccountManager.getInstance(
-				PomodoroBoxApplication.context(), DBX_APP_KEY, DBX_APP_SECRET);
-		mDbxAcctMgr.unlink();
-	}
+
 
 }
