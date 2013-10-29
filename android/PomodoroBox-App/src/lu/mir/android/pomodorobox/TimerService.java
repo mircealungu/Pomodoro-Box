@@ -1,7 +1,6 @@
 package lu.mir.android.pomodorobox;
 
-import java.io.IOException;
-
+import static lu.mir.android.pomodorobox.Duration.SECOND;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -14,7 +13,6 @@ import android.speech.tts.TextToSpeech.OnInitListener;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationCompat.Builder;
 import android.widget.Toast;
-import static lu.mir.android.pomodorobox.Duration.SECOND;
 
 import com.dropbox.sync.android.DbxPath.InvalidPathException;
 
@@ -31,6 +29,7 @@ public class TimerService extends Service implements OnInitListener {
 	public static final int STATE_DONE = 3;	
 
 	private Pomodoro pomodoro;
+	PomodoroDatabase db;
 	private CountDownTimer timer;
 	private EnglishSpeechEngine speechEngine;
 	private Builder mNotifyBuilder;
@@ -48,6 +47,7 @@ public class TimerService extends Service implements OnInitListener {
 
 		// Get the payload and save it locally
 		pomodoro = (Pomodoro) intent.getSerializableExtra(TimerActivity.EXTRA_POMODORO);
+		db = (PomodoroDatabase) intent.getSerializableExtra(MainActivity.DB);
 
 		// Start the timer
 		timer = new CountDownTimer(pomodoro.getPomodoroDuration(), SECOND) {
@@ -149,10 +149,8 @@ public class TimerService extends Service implements OnInitListener {
 	private void anounceAndLogPomodoroFinished() {
 		speechEngine.speak(getString(R.string.congratulation_message));
 		try {
-			DropBoxConnection.logPomodoroToDropbox(pomodoro.getPomodoroName());
+			db.logPomodoro(pomodoro.getPomodoroName(), PomodoroBoxApplication.context());
 		} catch (InvalidPathException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}

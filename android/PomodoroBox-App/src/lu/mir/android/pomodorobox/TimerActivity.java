@@ -41,8 +41,9 @@ public class TimerActivity extends Activity implements OnInitListener {
 	 */
 	Boolean myReceiverIsRegistered = false;
 	private SecondElapsedReceiver broadcastReceiver = null;
-	private Intent xintent;
+	private Intent timerServiceIntent;
 	private Pomodoro pomodoro;
+	PomodoroDatabase db;
 
 	/*
 	 * This is the callback of the timer service
@@ -192,11 +193,14 @@ public class TimerActivity extends Activity implements OnInitListener {
 		Intent intent = getIntent();
 		pomodoro = (Pomodoro) intent
 				.getSerializableExtra(TimerActivity.EXTRA_POMODORO);
+		db = (PomodoroDatabase) intent
+				.getSerializableExtra(MainActivity.DB);
 
 		if (savedInstanceState == null) {
-			xintent = new Intent(this, TimerService.class);
-			xintent.putExtra(TimerActivity.EXTRA_POMODORO, pomodoro);
-			startService(xintent);
+			timerServiceIntent = new Intent(this, TimerService.class);
+			timerServiceIntent.putExtra(TimerActivity.EXTRA_POMODORO, pomodoro);
+			timerServiceIntent.putExtra(MainActivity.DB, db);
+			startService(timerServiceIntent);
 		}
 	}
 
@@ -216,8 +220,8 @@ public class TimerActivity extends Activity implements OnInitListener {
 	}
 
 	private void finishAndStopTheService() {
-		xintent = new Intent(this, TimerService.class);
-		stopService(xintent);
+		timerServiceIntent = new Intent(this, TimerService.class);
+		stopService(timerServiceIntent);
 		finish();
 	}
 	

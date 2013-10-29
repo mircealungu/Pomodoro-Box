@@ -14,23 +14,27 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class MainActivity extends Activity {
-
 	final String welcomeScreenShownPref = "welcomeScreenShown";
+	PomodoroDatabase db;
+	public static final String DB = "lu.mir.android.pomodorobox.DB";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
 		setContentView(R.layout.activity_main);
-		showTotalLoggedPomodoros();
 		showKeyboardWhenStartingActivity();
+		
+		if (savedInstanceState == null) {
+			  Bundle b = getIntent().getExtras();
+			  db = (PomodoroDatabase)b.getSerializable(MainActivity.DB);
+			  showTotalLoggedPomodoros();
+		 }
 	}
 	
 	@Override
 	protected void onResume() {
 		super.onResume();
 		showTotalLoggedPomodoros();
-		//showLastLoggedPomodoros();
 	}
 	
 	@Override
@@ -42,7 +46,7 @@ public class MainActivity extends Activity {
 
 	private void showTotalLoggedPomodoros() {
 		TextView totalLoggedPomodoros = (TextView) findViewById(R.id.totalLoggedPomodoros);
-		totalLoggedPomodoros.setText("Until now:" + DropBoxConnection.countPomodoros());
+		totalLoggedPomodoros.setText("Until now:" + db.countPomodoros(PomodoroBoxApplication.context()) );
 	}
 
 	private void showKeyboardWhenStartingActivity() {
@@ -59,7 +63,7 @@ public class MainActivity extends Activity {
 		
 		Pomodoro newPomodoro = new Pomodoro(message, POMODORO_DURATION, POMODORO_BREAK_DURATION);
 		intent.putExtra(TimerActivity.EXTRA_POMODORO, newPomodoro);
-				
+		intent.putExtra(DB, db);
 		startActivity(intent);
 	}
 	
@@ -71,7 +75,7 @@ public class MainActivity extends Activity {
 		
 		Pomodoro newPomodoro = new Pomodoro(message, BLITZ_DURATION, BLITZ_BREAK_DURATION);
 		intent.putExtra(TimerActivity.EXTRA_POMODORO, newPomodoro);
-
+		intent.putExtra(DB, db);
 		startActivity(intent);
 	}	
 	

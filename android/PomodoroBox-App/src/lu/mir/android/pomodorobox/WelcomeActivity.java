@@ -14,7 +14,6 @@ public class WelcomeActivity extends Activity {
 	
 	
 	static final int REQUEST_LINK_TO_DBX = 0;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -40,6 +39,8 @@ public class WelcomeActivity extends Activity {
 	    if (requestCode == REQUEST_LINK_TO_DBX) {
 	        if (resultCode == Activity.RESULT_OK) {
 	    		Intent intent = new Intent(this, MainActivity.class);
+	    		DropBoxFileDB dbdb = new DropBoxFileDB();
+	    		intent.putExtra(MainActivity.DB, dbdb);
 	    		startActivity(intent);
 	        } else {
 	            // ... Link failed or was cancelled by the user.
