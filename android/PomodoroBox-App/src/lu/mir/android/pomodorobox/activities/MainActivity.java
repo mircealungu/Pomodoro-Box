@@ -19,7 +19,7 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity {
 	final String welcomeScreenShownPref = "welcomeScreenShown";
-	PomodoroDatabase db;
+	private PomodoroDatabase db;
 	public static final String DB = "lu.mir.android.pomodorobox.DB";
 
 	@Override
