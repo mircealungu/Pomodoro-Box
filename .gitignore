@@ -6,3 +6,4 @@ android/.metadata/*
 android/PomodoroBox-App/local.properties
 android/PomodoroBox-Test/local.properties
 android/PomodoroBox-Test/junit-report.xml
+.metadata/*
