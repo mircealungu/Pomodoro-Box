@@ -2,7 +2,7 @@ PomodoroBox
 ===========
 
     Motto #1: "All your pomodoros are belong to PomodoroBox"
-    Motto #2: "I know what I did last summer"
+    Motto #2: "PomodoroBox knows what you did last summer"
 
 The four greatest features of PomodoroBox are:
 - Time and log pomodoros from all your *Mac*, and *Android* devices
