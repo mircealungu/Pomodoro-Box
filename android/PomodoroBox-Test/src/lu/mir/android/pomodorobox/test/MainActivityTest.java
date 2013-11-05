@@ -30,10 +30,12 @@ public class MainActivityTest extends
 		setActivityInitialTouchMode(false);
 		
 		pomoBase = new MockDB();
+		
 		Intent intent = new Intent();
 		Bundle b = new Bundle();
 		b.putSerializable(MainActivity.DB, pomoBase); //Your id
 		intent.putExtras(b); //Put your id to your next Intent
+		
 		setActivityIntent(intent);
 		
 		mActivity = getActivity();
