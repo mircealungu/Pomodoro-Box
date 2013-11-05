@@ -1,7 +1,7 @@
 PomodoroBox
 ===========
 
-    Motto #1: "All your pomodoros are belong to box"
+    Motto #1: "All your pomodoros are belong to PomodoroBox"
     Motto #2: "I know what I did last summer"
 
 The four greatest features of PomodoroBox are:
