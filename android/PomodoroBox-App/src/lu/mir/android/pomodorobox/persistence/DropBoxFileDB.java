@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 
@@ -119,6 +120,18 @@ public class DropBoxFileDB implements PomodoroDatabase, Serializable {
 		}
 				
 		return lines;
+	}
+
+	@Override
+	public ArrayList<String> getLoggedPomodoros(Context appContext) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getLastLoggedPomodoro(Context appContext) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

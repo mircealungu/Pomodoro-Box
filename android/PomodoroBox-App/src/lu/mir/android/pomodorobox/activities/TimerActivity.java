@@ -96,7 +96,7 @@ public class TimerActivity extends Activity implements OnInitListener {
 		// Set the text view as the activity layout
 		setContentView(R.layout.activity_countdown);
 		TextView activityView = (TextView) findViewById(R.id.activity);
-		activityView.setText(pomodoro.getPomodoroName());
+		activityView.setText(pomodoro.getPomodoroStringRepresentation());
 	}
 
 	@Override
@@ -232,7 +232,7 @@ public class TimerActivity extends Activity implements OnInitListener {
 	private void inflateBreakLayout() {
 		setContentView(R.layout.activity_break_countdown);
 		TextView activityView = (TextView) findViewById(R.id.activity);
-		activityView.setText(pomodoro.getPomodoroName());
+		activityView.setText(pomodoro.getPomodoroStringRepresentation());
 	}
 
 }

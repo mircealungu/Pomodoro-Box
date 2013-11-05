@@ -100,7 +100,7 @@ public class TimerService extends Service implements OnInitListener {
 
 		String minuteString = ((minsToFinish < 10) ? "0" : "") + minsToFinish;
 		mNotifyBuilder
-				.setContentTitle(pomodoro.getPomodoroName())
+				.setContentTitle(pomodoro.getPomodoroStringRepresentation())
 				.setContentText( 
 						state + ":" +
 						minuteString +	" " + 
@@ -126,7 +126,7 @@ public class TimerService extends Service implements OnInitListener {
 				"lu.mir.android.pomodorobox.TimerActivity");
 		PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
 				notificationIntent, 0);
-		notification.setLatestEventInfo(this, notificationText, pomodoro.getPomodoroName(),
+		notification.setLatestEventInfo(this, notificationText, pomodoro.getPomodoroStringRepresentation(),
 				pendingIntent);
 
 		startForeground(ONGOING_NOTIFICATION_ID, notification);
@@ -153,7 +153,7 @@ public class TimerService extends Service implements OnInitListener {
 	private void anounceAndLogPomodoroFinished() {
 		speechEngine.speak(getString(R.string.congratulation_message));
 		try {
-			db.logPomodoro(pomodoro.getPomodoroName(), PomodoroBoxApplication.context());
+			db.logPomodoro(pomodoro.getPomodoroStringRepresentation(), PomodoroBoxApplication.context());
 		} catch (InvalidPathException e) {
 			e.printStackTrace();
 		}

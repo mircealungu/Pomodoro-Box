@@ -2,7 +2,6 @@ package lu.mir.android.pomodorobox.test;
 
 import lu.mir.android.pomodorobox.R;
 import lu.mir.android.pomodorobox.activities.MainActivity;
-import lu.mir.android.pomodorobox.persistence.DropBoxFileDB;
 import lu.mir.android.pomodorobox.persistence.MockDB;
 import lu.mir.android.pomodorobox.persistence.PomodoroDatabase;
 import android.content.Context;
@@ -54,15 +53,17 @@ public class MainActivityTest extends
 		assertEquals(pomoBase.countPomodoros(ctx), 11);
 	}
 	
+	
+	
 	/*
 	 * Beware! This one tests  with the actual database!
 	 */
-	public void testPomodoroDatabase() {
-		PomodoroDatabase db = new DropBoxFileDB();
-		int pomodoroCount = db.countPomodoros(ctx);
-		
-		assertTrue(pomodoroCount > 400);
-		assertTrue(pomodoroCount < 40000);
+	public void testGetPomodoroListFromMockDB() {
+		String newPomodoro = "testing pomodorobox, testing";
+		pomoBase.logPomodoro(newPomodoro,  ctx);
+		String readPomodoro = pomoBase.getLastLoggedPomodoro(ctx);
+		assertTrue(readPomodoro.equals(newPomodoro));
 	}
+	
 
 }
