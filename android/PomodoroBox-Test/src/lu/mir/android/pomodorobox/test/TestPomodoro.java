@@ -1,5 +1,9 @@
 package lu.mir.android.pomodorobox.test;
 
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.Calendar;
+
 import junit.framework.TestCase;
 import lu.mir.android.pomodorobox.Pomodoro;
 
@@ -28,5 +32,17 @@ public class TestPomodoro extends TestCase {
 	public void testConversionToStringRepresentation() {
 		Pomodoro a = new Pomodoro ("converting pomodoros", "hacking");
 		assertEquals(a.getPomodoroStringRepresentation(), "converting pomodoros, hacking");
+	}
+	
+	public void testReadPomodorosFromString() throws IOException, ParseException {
+		
+		Pomodoro p = Pomodoro.fromFullString("2013/09/05 23:19, lala, lulu");
+		
+		assertEquals(p.getPomodoroName(), "lala");
+		assertEquals(p.getPomodoroCategory(), "lulu");
+		
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(p.getDateFinished());
+		assertEquals(calendar.get(Calendar.MINUTE), 19);		
 	}
 }

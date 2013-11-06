@@ -29,7 +29,7 @@ public class DropBoxFileDB implements PomodoroDatabase, Serializable {
 	private static final long serialVersionUID = -2792003446819213380L;
 	
 	private static final String LOGFILE = "box.txt";
-	private static final String LOGFILE_DATE_FORMAT = "yyyy/MM/dd HH:mm";
+	public static final String LOGFILE_DATE_FORMAT = "yyyy/MM/dd HH:mm";
 
 	public final static String DBX_APP_KEY = "91kr6dmol3ta60l";
 	public final static String DBX_APP_SECRET = "4wkjx70xpfl0yqu";
