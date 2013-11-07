@@ -1,9 +1,5 @@
 package lu.mir.android.pomodorobox.activities;
 
-import static lu.mir.android.pomodorobox.util.Duration.BLITZ_BREAK_DURATION;
-import static lu.mir.android.pomodorobox.util.Duration.BLITZ_DURATION;
-import static lu.mir.android.pomodorobox.util.Duration.POMODORO_BREAK_DURATION;
-import static lu.mir.android.pomodorobox.util.Duration.POMODORO_DURATION;
 import lu.mir.android.pomodorobox.Pomodoro;
 import lu.mir.android.pomodorobox.PomodoroBoxApplication;
 import lu.mir.android.pomodorobox.R;
@@ -65,7 +61,7 @@ public class MainActivity extends Activity {
 		EditText editText = (EditText) findViewById(R.id.edit_message);
 		String message = editText.getText().toString();
 		
-		Pomodoro newPomodoro = new Pomodoro(message, POMODORO_DURATION, POMODORO_BREAK_DURATION);
+		Pomodoro newPomodoro = Pomodoro.fromNameAndTagString(message);
 		intent.putExtra(TimerActivity.EXTRA_POMODORO, newPomodoro);
 		intent.putExtra(DB, db);
 		startActivity(intent);
@@ -77,7 +73,8 @@ public class MainActivity extends Activity {
 		EditText editText = (EditText) findViewById(R.id.edit_message);
 		String message = editText.getText().toString();
 		
-		Pomodoro newPomodoro = new Pomodoro(message, BLITZ_DURATION, BLITZ_BREAK_DURATION);
+		Pomodoro newPomodoro = Pomodoro.fromNameAndTagString(message);
+		newPomodoro.makeBlitz();
 		intent.putExtra(TimerActivity.EXTRA_POMODORO, newPomodoro);
 		intent.putExtra(DB, db);
 		startActivity(intent);

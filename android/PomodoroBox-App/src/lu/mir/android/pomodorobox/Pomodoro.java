@@ -7,42 +7,78 @@ import java.util.Date;
 import java.util.Locale;
 
 import lu.mir.android.pomodorobox.persistence.DropBoxFileDB;
+import lu.mir.android.pomodorobox.util.Duration;
 
+/**
+ * By default a pomodoro has 25 minutes. One can create however one that has a shorter duration with a special factory method. Only used for testing purposes
+ * @author mircea
+ *
+ */
 public class Pomodoro implements Serializable {
 	public static final long DEFAULT_DURATION = 25;
 	public static final long DEFAULT_BREAK = 5;
 	private static final long serialVersionUID = 4289892333150850140L;
 
-	private long pomodoroDuration;
-	private long pomodoroBreakDuration;
-	private String pomodoroStringRepresentation;
-	private String pomodoroCategory;
-	private String pomodoroName;
+	private long duration;
+	private long breakDuration; //TODO: would be nice to move this out of here
+	private String tag;
+	private String description;
 	private Date dateFinished;
 
-	//
-	
-	/*
-	 * The two constructors create a pomodoro either based on it's duration
+	/**
+	 * Requires also the date
+	 * @param name
+	 * @param tag
+	 * @param dateFinished
 	 */
-	public Pomodoro(String pomodoroStringRepresentation, long pomodoroDuration,
-			long pomodoroBreakDuration) {
+	public Pomodoro(String name, String tag, Date dateFinished) {
 		super();
-		this.pomodoroDuration = pomodoroDuration;
-		this.pomodoroBreakDuration = pomodoroBreakDuration;
-		this.pomodoroStringRepresentation = pomodoroStringRepresentation;
-
-		// derive the name and category based on the string representation
-		pomodoroName = pomodoroStringRepresentation.substring(0,
-				pomodoroStringRepresentation.indexOf(","));
-		pomodoroCategory = pomodoroStringRepresentation.substring(
-				pomodoroStringRepresentation.indexOf(",") + 1).trim();
-	}
-
-	public Pomodoro(String stringRepresentation) {
-		this(stringRepresentation, DEFAULT_DURATION, DEFAULT_BREAK);
+		this.duration = Duration.POMODORO_DURATION;
+		this.breakDuration = Duration.POMODORO_BREAK_DURATION;
+		this.tag = tag;
+		this.description = name;
+		this.dateFinished = dateFinished;
 	}
 	
+	/**
+	 * assumes the date of now
+	 */
+	public Pomodoro(String name, String tag) {
+		this(name, tag, new Date());
+	}
+	
+	
+	// Factory Methods
+	// ---------------------------------------------------------------------------
+	
+	/**
+	 * assumes a format like "pom, tag"
+	 * @param nameAndTag
+	 * @return
+	 */
+	public static Pomodoro fromNameAndTagString(String nameAndTag) {
+		// derive the name and category based on the string representation
+		int commaPos = nameAndTag.indexOf(",");
+		Date dateFinished = new Date();
+		
+		if (commaPos == -1) {
+			// there is no tag
+			return new Pomodoro(nameAndTag, "", dateFinished);
+		}
+		
+		String name = nameAndTag.substring(0, commaPos);
+		
+		String tag = nameAndTag.substring(
+				nameAndTag.indexOf(",") + 1).trim();
+		
+		return new Pomodoro (name, tag, dateFinished);
+	}
+
+	/**
+	 * assumes that the string is well formatted
+	 * @param s
+	 * @return
+	 */
 	public static Pomodoro fromFullString(String s) {
 		
 		int nameIndex = s.indexOf(",");
@@ -62,50 +98,42 @@ public class Pomodoro implements Serializable {
 		return new Pomodoro(name, tag, d);
 	}
 
-	public Pomodoro(String pomodoroName, String pomodoroCategory,
-			long pomodoroDuration, long pomodoroBreakDuration) {
-		super();
-		this.pomodoroDuration = pomodoroDuration;
-		this.pomodoroBreakDuration = pomodoroBreakDuration;
-		this.pomodoroName = pomodoroName;
-		this.pomodoroCategory = pomodoroCategory;
-		this.pomodoroStringRepresentation = pomodoroName + ", "
-				+ pomodoroCategory;
-	}
 
-	public Pomodoro(String name, String category) {
-		this(name, category, DEFAULT_DURATION, DEFAULT_BREAK);
-	}
-
-	public Pomodoro(String name, String category, Date dateFinished) {
-		this(name, category, DEFAULT_DURATION, DEFAULT_BREAK);
-		this.setDateFinished(dateFinished);
+	public void makeBlitz() {
+		duration = Duration.BLITZ_DURATION;
+		breakDuration = Duration.BLITZ_BREAK_DURATION;
 	}
 	
+	public String stringRepresentation() {
+		SimpleDateFormat sdf = new SimpleDateFormat(DropBoxFileDB.LOGFILE_DATE_FORMAT, Locale.getDefault());
+		return sdf.format(dateFinished) + ", " + getNameAndTagRepresentation(); 
+	}
+	
+	// Accessors
+	// ----------------------------------------
 
-
-	public long getPomodoroDuration() {
-		return pomodoroDuration;
+	public long getDuration() {
+		return duration;
 	}
 
 	public long getPomodoroBreakDuration() {
-		return pomodoroBreakDuration;
+		return breakDuration;
 	}
 
-	public String getPomodoroStringRepresentation() {
-		return pomodoroStringRepresentation;
+	public String getNameAndTagRepresentation() {
+		return description + ", " + tag;
 	}
 
-	public String getPomodoroCategory() {
-		return pomodoroCategory;
+	public String getTag() {
+		return tag;
 	}
 
-	public String getPomodoroName() {
-		return pomodoroName;
+	public String getName() {
+		return description;
 	}
 
-	public void setPomodoroName(String pomodoroName) {
-		this.pomodoroName = pomodoroName;
+	public void setName(String pomodoroName) {
+		this.description = pomodoroName;
 	}
 
 	public Date getDateFinished() {
