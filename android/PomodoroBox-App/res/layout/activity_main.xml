@@ -37,8 +37,7 @@
 		<Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/startCounter_button"
-        android:layout_below ="@id/edit_message"
+        android:layout_below="@id/startCounter_button"
         android:layout_marginTop="16sp"
         android:layout_centerHorizontal ="true"      
         android:text="@string/button_blitz" 
