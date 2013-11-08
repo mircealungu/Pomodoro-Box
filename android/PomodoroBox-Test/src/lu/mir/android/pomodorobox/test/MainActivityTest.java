@@ -54,8 +54,7 @@ public class MainActivityTest extends
 		pomoBase.logPomodoro("testing", ctx);
 		assertEquals(pomoBase.countPomodoros(ctx), 11);
 	}
-	
-	
+
 	
 	/*
 	 * Beware! This one tests  with the actual database!
