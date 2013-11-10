@@ -1,17 +1,32 @@
 package lu.mir.android.pomodorobox.test;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.Reader;
+import java.io.StringReader;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 
 import junit.framework.TestCase;
 import lu.mir.android.pomodorobox.Pomodoro;
+import lu.mir.android.pomodorobox.PomodoroCollection;
 
 public class TestPomodoro extends TestCase {
 
+	Reader sr;
 	protected void setUp() throws Exception {
 		super.setUp();
+		createTestResource();
+	}
+	
+	private void createTestResource() throws FileNotFoundException {
+		String content = "2013/08/29 09:42, final version of the pl1 paper - last, pl1-paper\n" +
+"2013/08/29 10:49, communication with students, advising\n" +
+"2013/08/29 11:39, communication with students, advising\n"+
+"2013/08/29 14:24, weekend planning, personal\n";
+		sr = new StringReader(content);
+		
 	}
 
 	protected void tearDown() throws Exception {
@@ -62,10 +77,17 @@ public class TestPomodoro extends TestCase {
 		assertEquals(p.stringRepresentation(), "2113/01/10 10:10, a, b");
 	}
 	
-	public void testPomodoroCollection() {
+	public void testPomodoroCollectionGetCategories() {
 		PomodoroCollection col = new PomodoroCollection();
 		col.add(new Pomodoro("writing the first test","hacking"));
 		col.add(new Pomodoro("writing the second test", "hacking"));
-		assert(col.getCategories().size == 1);
+		assert(col.getTags().size() == 1);
+	}
+	
+	public void testPomodoroCollectionLoadFromFile() throws FileNotFoundException, IOException {
+		PomodoroCollection col = new PomodoroCollection();
+		col.loadFromReader(sr);
+		assert(col.getTags().size() > 0);
+		
 	}
 }
