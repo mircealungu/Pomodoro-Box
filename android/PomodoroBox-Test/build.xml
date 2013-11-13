@@ -131,7 +131,7 @@
     
     <target name="pmd">
         <pmd shortFilenames="true">
-            <ruleset>basic</ruleset>
+            <ruleset>rulesets/java/basic.xml</ruleset>
             <!-- <ruleset>android</ruleset> -->
             <auxClasspath path="${android.jar}" />
             <formatter type="xml" toFile="reports/pmd.xml" />
