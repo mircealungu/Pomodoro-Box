@@ -117,7 +117,7 @@
     
     <property name="reports.dir" value="reports" />
     
-    <property name="pmd.home" value="${tools.home}/${pmd.dir}" /> -->
+    <property name="pmd.home" value="${tools.home}/${pmd.dir}" />
     <!-- <property name="pmd-ruleset-file" value="${pmd.home}/android-rules.xml" /> -->
     
     <path id="pmd.tools.classpath"> <fileset dir="${pmd.home}/lib">
