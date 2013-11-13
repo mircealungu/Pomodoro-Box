@@ -115,11 +115,11 @@
     <!-- <property name="pmd.home" value="${tools.home}/pmd-bin-4.3" /> -->
     <!-- <property name="pmd-ruleset-file" value="${pmd.home}/android-rules.xml" /> -->
     
-    <!-- <path id="tools.classpath"> <fileset dir="${tools.home}">
-        <include name="**/**/*.jar" /> </fileset>
+    <path id="pmd.tools.classpath"> <fileset dir="${findbugs.home}/lib">
+        <include name="*.jar" /> </fileset>
     </path>
     
-    <taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask" classpathref="tools.classpath" />
+    <!-- <taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask" classpathref="tools.classpath" />
     <taskdef name="cpd" classname="net.sourceforge.pmd.cpd.CPDTask" classpathref="tools.classpath" /> -->
     
  
@@ -133,7 +133,13 @@
         <pmd shortFilenames="true">
             <ruleset>rulesets/java/basic.xml</ruleset>
             <!-- <ruleset>android</ruleset> -->
-            <auxClasspath path="${android.jar}" />
+            <auxclasspath>
+                <pathelement location="${android.jar}" />
+                <fileset dir="${findbugs.home}/lib">
+                    <include name="*.jar" />
+                </fileset>
+            </auxclasspath>
+
             <formatter type="xml" toFile="reports/pmd.xml" />
             <fileset dir="${source.dir}" includes="**/*.java" />
         </pmd>
