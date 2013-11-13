@@ -133,6 +133,15 @@
         <pmd shortFilenames="true">
             <ruleset>rulesets/java/basic.xml</ruleset>
             <ruleset>rulesets/java/android.xml</ruleset>
+            <ruleset>rulesets/java/braces.xml</ruleset>
+            <ruleset>rulesets/java/clone.xml</ruleset>
+            <ruleset>rulesets/java/codesize.xml</ruleset>
+            <ruleset>rulesets/java/comments.xml</ruleset>
+            <ruleset>rulesets/java/coupling.xml</ruleset>
+            <ruleset>rulesets/java/design.xml</ruleset>
+            <ruleset>rulesets/java/empty.xml</ruleset>
+            <ruleset>rulesets/java/finalizers.xml</ruleset>
+            <ruleset>rulesets/java/imports.xml</ruleset>
             <!-- <ruleset>android</ruleset> -->
             <auxclasspath>
                 <pathelement location="${android.jar}" />
@@ -145,7 +154,7 @@
             <fileset dir="${source.dir}" includes="**/*.java" />
         </pmd>
         
-        <cpd minimumTokenCount="10" outputFile="reports/cpd.xml" format="xml">
+        <cpd minimumTokenCount="50" outputFile="reports/cpd.xml" format="xml">
             <fileset dir="${source.dir}">
                 <include name="**/*.java" /> </fileset>
         </cpd>
