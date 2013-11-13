@@ -115,6 +115,10 @@
     <!-- <property name="pmd.home" value="${tools.home}/pmd-bin-4.3" /> -->
     <!-- <property name="pmd-ruleset-file" value="${pmd.home}/android-rules.xml" /> -->
     
+    <path id="tools.classpath"> <fileset dir="${tools.home}">
+        <include name="**/**/*.jar" /> </fileset>
+    </path>
+    
     <taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask" classpathref="tools.classpath" />
     <taskdef name="cpd" classname="net.sourceforge.pmd.cpd.CPDTask" classpathref="tools.classpath" />
     
