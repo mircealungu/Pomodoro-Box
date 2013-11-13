@@ -115,7 +115,7 @@
     <!-- <property name="pmd.home" value="${tools.home}/pmd-bin-4.3" /> -->
     <!-- <property name="pmd-ruleset-file" value="${pmd.home}/android-rules.xml" /> -->
     
-    <path id="pmd.tools.classpath"> <fileset dir="${findbugs.home}/lib">
+    <path id="pmd.tools.classpath"> <fileset dir="${pmd.home}/lib">
         <include name="*.jar" /> </fileset>
     </path>
     
@@ -135,7 +135,7 @@
             <!-- <ruleset>android</ruleset> -->
             <auxclasspath>
                 <pathelement location="${android.jar}" />
-                <fileset dir="${findbugs.home}/lib">
+                <fileset dir="${pmd.home}/lib">
                     <include name="*.jar" />
                 </fileset>
             </auxclasspath>
