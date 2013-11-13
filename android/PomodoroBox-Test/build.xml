@@ -126,7 +126,7 @@
     <property name="android-jar-file" value="${sdk.dir}/platforms/${target}/android.jar" />
     
     <taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask" classpathref="pmd.tools.classpath" />
-    <!-- <taskdef name="cpd" classname="net.sourceforge.pmd.cpd.CPDTask" /> -->
+    <taskdef name="cpd" classname="net.sourceforge.pmd.cpd.CPDTask" classpathref="pmd.tools.classpath" />
 
     
     <target name="pmd">
@@ -144,12 +144,12 @@
             <formatter type="xml" toFile="reports/pmd.xml" />
             <fileset dir="${source.dir}" includes="**/*.java" />
         </pmd>
-        <!--
+        
         <cpd minimumTokenCount="100" outputFile="reports/cpd.xml" format="xml">
             <fileset dir="${source.dir}">
                 <include name="**/*.java" /> </fileset>
-        </cpd>  -->
+        </cpd>
         
-         </target>
+    </target>
 
 </project>
