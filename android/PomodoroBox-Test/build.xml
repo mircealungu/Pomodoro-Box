@@ -126,18 +126,17 @@
     <property name="android-jar-file" value="${sdk.dir}/platforms/${target}/android.jar" />
     
     <taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask" />
-    <taskdef name="cpd" classname="net.sourceforge.pmd.cpd.CPDTask" />
+    <!-- <taskdef name="cpd" classname="net.sourceforge.pmd.cpd.CPDTask" /> -->
 
     
     <target name="pmd">
         <pmd shortFilenames="true">
             <ruleset>basic</ruleset>
             <!-- <ruleset>android</ruleset> -->
-            <formatter type="xml" toFile="reports/pmd.xml" /> <auxclasspath>
-                <pathelement location="${android-jar-file}" /> <fileset dir="${jar.libs.dir}">
-                    <include name="*.jar" /> </fileset>
-            </auxclasspath>
-            <fileset dir="${source.dir}" includes="**/*.java" /> </pmd>
+            <auxClasspath path="${android.jar}" />
+            <formatter type="xml" toFile="reports/pmd.xml" />
+            <fileset dir="${source.dir}" includes="**/*.java" />
+        </pmd>
         <!--
         <cpd minimumTokenCount="100" outputFile="reports/cpd.xml" format="xml">
             <fileset dir="${source.dir}">
