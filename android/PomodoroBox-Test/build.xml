@@ -112,22 +112,22 @@
         </findbugs>
     </target>
     
-    <!-- <property name="pmd.home" value="${tools.home}/pmd-bin-4.3" /> -->
+    <!-- Define in local.properties -->
+    <!-- <property name="tools.home" value="${android-aant.home}/aant" /> -->
+    
+    <property name="reports.dir" value="reports" />
+    
+    <property name="pmd.home" value="${tools.home}/${pmd.dir}" /> -->
     <!-- <property name="pmd-ruleset-file" value="${pmd.home}/android-rules.xml" /> -->
     
     <path id="pmd.tools.classpath"> <fileset dir="${pmd.home}/lib">
         <include name="*.jar" /> </fileset>
     </path>
     
-    <!-- <taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask" classpathref="tools.classpath" />
-    <taskdef name="cpd" classname="net.sourceforge.pmd.cpd.CPDTask" classpathref="tools.classpath" /> -->
-    
- 
-    <property name="android-jar-file" value="${sdk.dir}/platforms/${target}/android.jar" />
-    
     <taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask" classpathref="pmd.tools.classpath" />
     <taskdef name="cpd" classname="net.sourceforge.pmd.cpd.CPDTask" classpathref="pmd.tools.classpath" />
 
+    <taskdef resource="checkstyletask.properties" classpath="${checkstyle.home}/checkstyle-5.5-all.jar"/>
     
     <target name="pmd">
         <pmd shortFilenames="true">
@@ -151,7 +151,7 @@
             <ruleset>rulesets/java/typeresolution.xml</ruleset>
             <ruleset>rulesets/java/unnecessary.xml</ruleset>
             <ruleset>rulesets/java/unusedcode.xml</ruleset>
-            <!-- <ruleset>android</ruleset> -->
+           
             <auxclasspath>
                 <pathelement location="${android.jar}" />
                 <fileset dir="${pmd.home}/lib">
@@ -159,13 +159,14 @@
                 </fileset>
             </auxclasspath>
 
-            <formatter type="xml" toFile="reports/pmd.xml" />
+            <formatter type="xml" toFile="${reports.dir}/pmd.xml" />
             <fileset dir="${source.dir}" includes="**/*.java" />
         </pmd>
         
-        <cpd minimumTokenCount="50" outputFile="reports/cpd.xml" format="xml">
+        <cpd minimumTokenCount="50" outputFile="${reports.dir}/cpd.xml" format="xml">
             <fileset dir="${source.dir}">
-                <include name="**/*.java" /> </fileset>
+                <include name="**/*.java" />
+            </fileset>
         </cpd>
         
     </target>
