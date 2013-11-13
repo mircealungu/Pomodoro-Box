@@ -125,7 +125,7 @@
  
     <property name="android-jar-file" value="${sdk.dir}/platforms/${target}/android.jar" />
     
-    <taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask" classpathref="tools.classpath" />
+    <taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask" classpathref="pmd.tools.classpath" />
     <!-- <taskdef name="cpd" classname="net.sourceforge.pmd.cpd.CPDTask" /> -->
 
     
