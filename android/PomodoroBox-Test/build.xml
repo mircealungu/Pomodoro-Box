@@ -132,6 +132,7 @@
     <target name="pmd">
         <pmd shortFilenames="true">
             <ruleset>rulesets/java/basic.xml</ruleset>
+            <ruleset>rulesets/java/android.xml</ruleset>
             <!-- <ruleset>android</ruleset> -->
             <auxclasspath>
                 <pathelement location="${android.jar}" />
