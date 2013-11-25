@@ -14,19 +14,20 @@ import lu.mir.android.pomodorobox.PomodoroCollection;
 
 public class TestPomodoro extends TestCase {
 
-	Reader sr;
+	Reader boxWithFourPomodoros;
+	Reader emptyBox;
 	protected void setUp() throws Exception {
 		super.setUp();
-		createTestResource();
+		createTestResources();
 	}
 	
-	private void createTestResource() throws FileNotFoundException {
+	private void createTestResources() throws FileNotFoundException {
 		String content = "2013/08/29 09:42, final version of the pl1 paper - last, pl1-paper\n" +
 "2013/08/29 10:49, communication with students, advising\n" +
 "2013/08/29 11:39, communication with students, advising\n"+
 "2013/08/29 14:24, weekend planning, personal\n";
-		sr = new StringReader(content);
-		
+		boxWithFourPomodoros = new StringReader(content);
+		emptyBox = new StringReader (new String());
 	}
 
 	protected void tearDown() throws Exception {
@@ -66,6 +67,21 @@ public class TestPomodoro extends TestCase {
 		assertEquals(calendar.get(Calendar.MINUTE), 19);		
 	}
 	
+	public void testReadFromEmptyFile() {
+		PomodoroCollection box = new PomodoroCollection();
+		
+		try {
+			box.loadFromReader(emptyBox);
+			assert (box.getTags().size() == 0);
+			assert (box.pomodoroCount() == 0);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
 	
 	public void testStringRepresentation() {
 		Calendar calendar = Calendar.getInstance();
@@ -84,10 +100,17 @@ public class TestPomodoro extends TestCase {
 		assert(col.getTags().size() == 1);
 	}
 	
-	public void testPomodoroCollectionLoadFromFile() throws FileNotFoundException, IOException {
+	public void testPomodoroCollectionLoadFromFile() {
 		PomodoroCollection col = new PomodoroCollection();
-		col.loadFromReader(sr);
+		try {
+			col.loadFromReader(boxWithFourPomodoros);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		assert(col.getTags().size() > 0);
+		assert (col.getPomodoros().get(0).getTag().compareTo("pl1-paper") == 0);
+		assert (col.getPomodoros().get(0).getTag().compareTo("pl1-paper111") != 0);
 		
 	}
 }

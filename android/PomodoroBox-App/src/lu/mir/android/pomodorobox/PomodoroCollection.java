@@ -45,5 +45,12 @@ public class PomodoroCollection {
 	        br.close();
 	    }
 	}
+		
+	public int pomodoroCount() {
+		return poms.size();
+	}
 	
+	public List<Pomodoro> getPomodoros() {
+		return poms;
+	}
 }
