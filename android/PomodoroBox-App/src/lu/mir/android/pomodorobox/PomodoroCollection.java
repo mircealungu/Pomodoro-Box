@@ -53,4 +53,8 @@ public class PomodoroCollection {
 	public List<Pomodoro> getPomodoros() {
 		return poms;
 	}
+	
+	public boolean isEmpty() {
+		return poms.size() == 0;
+	}
 }

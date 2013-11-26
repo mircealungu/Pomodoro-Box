@@ -15,7 +15,7 @@ import lu.mir.android.pomodorobox.PomodoroCollection;
 public class TestPomodoro extends TestCase {
 
 	Reader boxWithFourPomodoros;
-	Reader emptyBox;
+	Reader emptyPomodoroBox;
 	protected void setUp() throws Exception {
 		super.setUp();
 		createTestResources();
@@ -27,7 +27,7 @@ public class TestPomodoro extends TestCase {
 "2013/08/29 11:39, communication with students, advising\n"+
 "2013/08/29 14:24, weekend planning, personal\n";
 		boxWithFourPomodoros = new StringReader(content);
-		emptyBox = new StringReader (new String());
+		emptyPomodoroBox = new StringReader (new String());
 	}
 
 	protected void tearDown() throws Exception {
@@ -71,7 +71,7 @@ public class TestPomodoro extends TestCase {
 		PomodoroCollection box = new PomodoroCollection();
 		
 		try {
-			box.loadFromReader(emptyBox);
+			box.loadFromReader(emptyPomodoroBox);
 			assert (box.getTags().size() == 0);
 			assert (box.pomodoroCount() == 0);
 		} catch (IOException e) {
