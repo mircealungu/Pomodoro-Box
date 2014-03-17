@@ -1,0 +1,1 @@
+* Download the Pomodoro Desktop from within the installer.
