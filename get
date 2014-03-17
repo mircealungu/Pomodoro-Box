@@ -1,0 +1,43 @@
+#!/bin/bash
+
+if [[ `which curl 2> /dev/null` ]]; then
+	DOWNLOAD="curl --silent --location --compressed ";
+	DOWNLOAD_TO="$DOWNLOAD --output ";
+elif [[ `which wget 2> /dev/null` ]]; then
+	DOWNLOAD_TO="wget --quiet --output-document=";
+	DOWNLOAD="$DOWNLOAD_TO-";
+else
+	echo "Please install curl or wget on your machine";
+	exit 1
+fi
+
+# DETECT SYSTEM PROPERTIES ======================================================
+TMP_OS=`uname | tr "[:upper:]" "[:lower:]"`
+if [[ "{$TMP_OS}" = *darwin* ]]; then
+    OS="mac";
+elif [[ "{$TMP_OS}" = *linux* ]]; then
+    OS="linux";
+    echo "Unsupported OS";
+    exit 1;    
+elif [[ "{$TMP_OS}" = *win* ]]; then
+    OS="win";
+    echo "Unsupported OS";
+    exit 1;
+elif [[ "{$TMP_OS}" = *mingw* ]]; then
+    OS="win";
+    echo "Unsupported OS";
+    exit 1;
+else
+    echo "Unsupported OS";
+    exit 1;
+fi
+
+
+# OTHER ==================================================
+echo -e "\n\n>> Download The pom command"
+
+$DOWNLOAD_TO ~/Dropbox/Apps/PomodoroBox/ https://raw.github.com/mircealungu/PomodoroBox/master/script/pom.sh
+chmod +x ~/Dropbox/Apps/PomodoroBox/pom.sh
+echo alias pom='~/Dropbox/Apps/PomodoroBox/pom.sh' >> ~/.profile && source ~/.profile
+
+echo -e "\n>> pom is now installed!\n"
