@@ -22,19 +22,12 @@ You have to follow these steps for each of your Macs on which you want to instal
     do shell script "echo  `date '+%Y/%m/%d %H:%M'`, $pomodoroName >> ~/Dropbox/Apps/PomodoroBox/box.txt" 
     ```
 
-3. Execute the following three commands one after the other in Terminal: 
+3. Execute the following command in the Terminal: 
 
     ```
-    wget -N -P ~/Dropbox/Apps/PomodoroBox/ https://raw.github.com/mircealungu/PomodoroBox/master/script/pom.sh
+    curl https://raw.github.com/mircealungu/Pomodoro-Box/master/get | bash
     ```
     
-    ```
-    chmod +x ~/Dropbox/Apps/PomodoroBox/pom.sh
-    ```
-    
-    ```
-    echo alias pom='~/Dropbox/Apps/PomodoroBox/pom.sh' >> ~/.profile && source ~/.profile
-    ```
 The commands download the script, make it executable, and add an alias named `pom` in the .profile script. Now you can use the `pom` command.
 
 ## Installation for Android
