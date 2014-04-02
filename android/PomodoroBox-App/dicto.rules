@@ -1,0 +1,11 @@
+var Activities: Component with package="lu.mir.android.pomodorobox.activities"
+var Persistence: Component with package="lu.mir.android.pomodorobox.persistence"
+var Util: Component with package="lu.mir.android.pomodorobox.util"
+
+var Site: Website with url="https://github.com/mircealungu/Pomodoro-Box"
+
+Site must HaveResponseTimeLessThenMS(3500)
+
+Persistence cannot DependOn(Activities) 
+Activities must DependOn(Persistence)
+
